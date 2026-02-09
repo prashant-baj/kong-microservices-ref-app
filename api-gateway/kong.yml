@@ -1,0 +1,74 @@
+_format_version: "3.0"
+
+services:
+  - name: product-service
+    url: http://product-service:8081
+    routes:
+      - name: product-routes
+        paths:
+          - /api/products
+        strip_path: false
+        protocols:
+          - http
+
+  - name: inventory-service
+    url: http://inventory-service:8082
+    routes:
+      - name: inventory-routes
+        paths:
+          - /api/inventory
+        strip_path: false
+        protocols:
+          - http
+
+  - name: order-service
+    url: http://order-service:8083
+    routes:
+      - name: order-routes
+        paths:
+          - /api/orders
+        strip_path: false
+        protocols:
+          - http
+
+plugins:
+  # Global rate limiting
+  - name: rate-limiting
+    config:
+      minute: 100
+      policy: local
+
+  # Global CORS
+  - name: cors
+    config:
+      origins:
+        - "*"
+      methods:
+        - GET
+        - POST
+        - PUT
+        - DELETE
+        - OPTIONS
+      headers:
+        - Content-Type
+        - Authorization
+      max_age: 3600
+
+  # Request/response logging
+  - name: file-log
+    config:
+      path: /dev/stdout
+      reopen: false
+
+  # Key auth on order routes (sensitive operations)
+  - name: key-auth
+    service: order-service
+    config:
+      key_names:
+        - apikey
+      hide_credentials: true
+
+consumers:
+  - username: lab-user
+    keyauth_credentials:
+      - key: lab-api-key-2024

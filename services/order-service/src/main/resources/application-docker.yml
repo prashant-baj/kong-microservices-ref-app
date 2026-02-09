@@ -1,0 +1,9 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://postgres:5432/order_db
+
+services:
+  product-service:
+    url: http://product-service:8081
+  inventory-service:
+    url: http://inventory-service:8082
