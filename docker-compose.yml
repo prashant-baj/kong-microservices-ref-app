@@ -29,12 +29,11 @@ services:
       postgres:
         condition: service_healthy
     healthcheck:
-      test: ["CMD-SHELL", "curl -f http://localhost:8081/actuator/health || exit 1"]
+      test: ["CMD", "curl", "-fsS", "http://127.0.0.1:8081/actuator/health"]
       interval: 10s
       timeout: 5s
       retries: 10
       start_period: 40s
-
 
   inventory-service:
     build:
@@ -49,12 +48,11 @@ services:
       postgres:
         condition: service_healthy
     healthcheck:
-      test: ["CMD-SHELL", "curl -f http://localhost:8082/actuator/health || exit 1"]
+      test: ["CMD", "curl", "-fsS", "http://127.0.0.1:8082/actuator/health"]
       interval: 10s
       timeout: 5s
       retries: 10
       start_period: 40s
-
 
   order-service:
     build:
@@ -65,41 +63,54 @@ services:
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/order_db
       SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: postgres
-      SERVICES_PRODUCT_SERVICE_URL: http://product-service:8081/actuator/health
-      SERVICES_INVENTORY_SERVICE_URL: http://inventory-service:8082/actuator/health
+      SERVICES_PRODUCT_SERVICE_URL: http://product-service:8081
+      SERVICES_INVENTORY_SERVICE_URL: http://inventory-service:8082
     depends_on:
       product-service:
         condition: service_healthy
       inventory-service:
         condition: service_healthy
     healthcheck:
-      test: ["CMD-SHELL", "curl -f http://localhost:8083/actuator/health || exit 1"]
+      test: ["CMD", "curl", "-fsS", "http://127.0.0.1:8083/actuator/health"]
       interval: 10s
       timeout: 5s
       retries: 10
       start_period: 60s
 
-
   kong:
     image: kong:3.6
     environment:
-      KONG_DATABASE: "off"
-      KONG_DECLARATIVE_CONFIG: /etc/kong/kong.yml
+      KONG_DATABASE: postgres
+      KONG_PG_HOST: postgres
+      KONG_PG_PORT: 5432
+      KONG_PG_USER: postgres
+      KONG_PG_PASSWORD: postgres
+      KONG_PG_DATABASE: kong
       KONG_PROXY_LISTEN: 0.0.0.0:8000
       KONG_ADMIN_LISTEN: 0.0.0.0:8001
       KONG_LOG_LEVEL: info
     ports:
       - "8000:8000"
       - "8001:8001"
-    volumes:
-      - ./api-gateway/kong.yml:/etc/kong/kong.yml:ro
     depends_on:
+      postgres:
+        condition: service_healthy
       product-service:
         condition: service_healthy
       inventory-service:
         condition: service_healthy
       order-service:
         condition: service_healthy
+
+  konga:
+    image: pantsel/konga:0.14.9
+    container_name: konga
+    environment:
+      NODE_ENV: development
+    ports:
+      - "1337:1337"
+    depends_on:
+      - kong
 
 volumes:
   postgres-data:

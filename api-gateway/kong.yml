@@ -71,4 +71,4 @@ plugins:
 consumers:
   - username: lab-user
     keyauth_credentials:
-      - key: lab-api-key-2024
+      - key: lab-api-key-2026
