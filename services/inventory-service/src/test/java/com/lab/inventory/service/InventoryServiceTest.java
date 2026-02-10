@@ -3,7 +3,6 @@ package com.lab.inventory.service;
 import com.lab.inventory.dto.AddStockRequest;
 import com.lab.inventory.dto.ReserveStockRequest;
 import com.lab.inventory.exception.InsufficientStockException;
-import com.lab.inventory.exception.StockItemNotFoundException;
 import com.lab.inventory.model.Reservation;
 import com.lab.inventory.model.ReservationStatus;
 import com.lab.inventory.model.StockItem;

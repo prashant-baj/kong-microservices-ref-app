@@ -7,20 +7,17 @@ import com.lab.order.client.ProductServiceClient.ProductInfo;
 import com.lab.order.dto.CreateOrderRequest;
 import com.lab.order.dto.OrderLineItemRequest;
 import com.lab.order.exception.OrderCreationException;
-import com.lab.order.exception.OrderNotFoundException;
 import com.lab.order.model.Order;
 import com.lab.order.model.OrderStatus;
 import com.lab.order.repository.OrderRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
