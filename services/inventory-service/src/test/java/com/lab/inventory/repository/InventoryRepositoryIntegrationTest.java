@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.orm.ObjectOptimisticLockingFailureException;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.testcontainers.containers.PostgreSQLContainer;
@@ -75,10 +76,10 @@ class InventoryRepositoryIntegrationTest {
         entityManager.clear();
 
         // Load two copies of the same entity
-        StockItem copy1 = stockItemRepository.findById(saved.getId()).orElseThrow();
+        StockItem copy1 = stockItemRepository.findByProductId(productId).orElseThrow();
         entityManager.detach(copy1);
 
-        StockItem copy2 = stockItemRepository.findById(saved.getId()).orElseThrow();
+        StockItem copy2 = stockItemRepository.findByProductId(productId).orElseThrow();
 
         // Modify and save copy2 first (this succeeds and increments the version)
         copy2.setQuantityAvailable(80);
@@ -87,9 +88,13 @@ class InventoryRepositoryIntegrationTest {
         // Now try to save copy1 with the stale version (this should fail)
         copy1.setQuantityAvailable(90);
 
-        assertThatThrownBy(() -> {
-            stockItemRepository.saveAndFlush(copy1);
-        }).isInstanceOf(OptimisticLockException.class);
+        // assertThatThrownBy(() -> {
+        //     stockItemRepository.saveAndFlush(copy1);
+        // }).isInstanceOf(OptimisticLockException.class);
+
+        assertThatThrownBy(() ->
+                stockItemRepository.saveAndFlush(copy1)
+        ).isInstanceOf(ObjectOptimisticLockingFailureException.class);
     }
 
     @Test
