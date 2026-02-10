@@ -20,7 +20,7 @@ import static org.hamcrest.Matchers.*;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class FullOrderFlowIT {
 
-    private static final String API_KEY = "lab-api-key-2024";
+    private static final String API_KEY = "lab-api-key-2026";
     private static String productId;
 
     @BeforeAll

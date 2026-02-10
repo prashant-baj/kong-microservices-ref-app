@@ -53,7 +53,7 @@ class GatewayRoutingIT {
     @Test
     void should_AllowOrdersWithApiKey() {
         given()
-                .header("apikey", "lab-api-key-2024")
+                .header("apikey", "lab-api-key-2026")
         .when()
                 .get("/api/orders")
         .then()
