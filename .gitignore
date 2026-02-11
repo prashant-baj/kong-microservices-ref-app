@@ -38,5 +38,6 @@ hs_err_pid*
 # Test output
 surefire-reports/
 failsafe-reports/
+training/
 
 CLAUDE.md
