@@ -1,0 +1,1954 @@
+{
+ "Description": "Kong API Gateway and Microservices Infrastructure",
+ "Resources": {
+  "KubectlLayer600207B5": {
+   "Type": "AWS::Lambda::LayerVersion",
+   "Properties": {
+    "CompatibleRuntimes": [
+     "python3.13",
+     "provided.al2"
+    ],
+    "Content": {
+     "S3Bucket": {
+      "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-ap-southeast-1"
+     },
+     "S3Key": "384dec20398dfd04e5832b1e7c8745eebabeb96dcc0bed9faef4412c4c1fdf39.zip"
+    },
+    "Description": "Kubectl 1.28 layer"
+   },
+   "Metadata": {
+    "aws:cdk:path": "EksStack/KubectlLayer/Resource",
+    "aws:asset:path": "asset.384dec20398dfd04e5832b1e7c8745eebabeb96dcc0bed9faef4412c4c1fdf39",
+    "aws:asset:is-bundled": false,
+    "aws:asset:property": "Content"
+   }
+  },
+  "KongMicroservicesClusterKubectlHandlerRole3006A08A": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     },
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaVPCAccessExecutionRole"
+       ]
+      ]
+     },
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/AmazonEC2ContainerRegistryPullOnly"
+       ]
+      ]
+     },
+     {
+      "Fn::If": [
+       "KongMicroservicesClusterHasEcrPublic31FBB993",
+       {
+        "Fn::Join": [
+         "",
+         [
+          "arn:",
+          {
+           "Ref": "AWS::Partition"
+          },
+          ":iam::aws:policy/AmazonElasticContainerRegistryPublicReadOnly"
+         ]
+        ]
+       },
+       {
+        "Ref": "AWS::NoValue"
+       }
+      ]
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "EksStack/KongMicroservicesCluster/KubectlHandlerRole/Resource"
+   }
+  },
+  "KongMicroservicesClusterKubectlHandlerRoleDefaultPolicyF65B049A": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": "eks:DescribeCluster",
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::GetAtt": [
+         "KongMicroservicesCluster5B0ADCEE",
+         "Arn"
+        ]
+       }
+      },
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::GetAtt": [
+         "KongMicroservicesClusterCreationRole76E0EC80",
+         "Arn"
+        ]
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "KongMicroservicesClusterKubectlHandlerRoleDefaultPolicyF65B049A",
+    "Roles": [
+     {
+      "Ref": "KongMicroservicesClusterKubectlHandlerRole3006A08A"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "EksStack/KongMicroservicesCluster/KubectlHandlerRole/DefaultPolicy/Resource"
+   }
+  },
+  "KongMicroservicesClusterRole82C409ED": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "eks.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/AmazonEKSClusterPolicy"
+       ]
+      ]
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "EksStack/KongMicroservicesCluster/Role/Resource"
+   }
+  },
+  "KongMicroservicesClusterCreationRole76E0EC80": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "AWS": {
+         "Fn::GetAtt": [
+          "awscdkawseksClusterResourceProviderNestedStackawscdkawseksClusterResourceProviderNestedStackResource9827C454",
+          "Outputs.EksStackawscdkawseksClusterResourceProviderOnEventHandlerServiceRole1469AC1FArn"
+         ]
+        }
+       }
+      },
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "AWS": {
+         "Fn::GetAtt": [
+          "awscdkawseksClusterResourceProviderNestedStackawscdkawseksClusterResourceProviderNestedStackResource9827C454",
+          "Outputs.EksStackawscdkawseksClusterResourceProviderIsCompleteHandlerServiceRole616EE428Arn"
+         ]
+        }
+       }
+      },
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "AWS": {
+         "Fn::GetAtt": [
+          "KongMicroservicesClusterKubectlHandlerRole3006A08A",
+          "Arn"
+         ]
+        }
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "EksStack/KongMicroservicesCluster/Resource/CreationRole/Resource"
+   }
+  },
+  "KongMicroservicesClusterCreationRoleDefaultPolicy5D0A673C": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": "iam:PassRole",
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::GetAtt": [
+         "KongMicroservicesClusterRole82C409ED",
+         "Arn"
+        ]
+       }
+      },
+      {
+       "Action": [
+        "eks:CreateCluster",
+        "eks:DescribeCluster",
+        "eks:DescribeUpdate",
+        "eks:DeleteCluster",
+        "eks:UpdateClusterVersion",
+        "eks:UpdateClusterConfig",
+        "eks:CreateFargateProfile",
+        "eks:TagResource",
+        "eks:UntagResource"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::Join": [
+          "",
+          [
+           "arn:",
+           {
+            "Ref": "AWS::Partition"
+           },
+           ":eks:ap-southeast-1:",
+           {
+            "Ref": "AWS::AccountId"
+           },
+           ":cluster/kong-microservices-cluster"
+          ]
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           "arn:",
+           {
+            "Ref": "AWS::Partition"
+           },
+           ":eks:ap-southeast-1:",
+           {
+            "Ref": "AWS::AccountId"
+           },
+           ":cluster/kong-microservices-cluster/*"
+          ]
+         ]
+        }
+       ]
+      },
+      {
+       "Action": [
+        "eks:DescribeFargateProfile",
+        "eks:DeleteFargateProfile"
+       ],
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::Join": [
+         "",
+         [
+          "arn:",
+          {
+           "Ref": "AWS::Partition"
+          },
+          ":eks:ap-southeast-1:",
+          {
+           "Ref": "AWS::AccountId"
+          },
+          ":fargateprofile/kong-microservices-cluster/*"
+         ]
+        ]
+       }
+      },
+      {
+       "Action": [
+        "iam:GetRole",
+        "iam:listAttachedRolePolicies"
+       ],
+       "Effect": "Allow",
+       "Resource": "*"
+      },
+      {
+       "Action": "iam:CreateServiceLinkedRole",
+       "Effect": "Allow",
+       "Resource": "*"
+      },
+      {
+       "Action": [
+        "ec2:DescribeInstances",
+        "ec2:DescribeNetworkInterfaces",
+        "ec2:DescribeSecurityGroups",
+        "ec2:DescribeSubnets",
+        "ec2:DescribeRouteTables",
+        "ec2:DescribeDhcpOptions",
+        "ec2:DescribeVpcs"
+       ],
+       "Effect": "Allow",
+       "Resource": "*"
+      },
+      {
+       "Action": "iam:PassRole",
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::GetAtt": [
+         "KongMicroservicesClusterfargateprofileKongFargateProfilePodExecutionRoleE7275387",
+         "Arn"
+        ]
+       }
+      },
+      {
+       "Action": "iam:PassRole",
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::GetAtt": [
+         "KongMicroservicesClusterfargateprofileMicroservicesFargateProfilePodExecutionRoleF4FF7328",
+         "Arn"
+        ]
+       }
+      },
+      {
+       "Action": "iam:PassRole",
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::GetAtt": [
+         "KongMicroservicesClusterfargateprofileDatabasesFargateProfilePodExecutionRoleF1EC94E1",
+         "Arn"
+        ]
+       }
+      },
+      {
+       "Action": "iam:PassRole",
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::GetAtt": [
+         "KongMicroservicesClusterfargateprofileCoreSystemFargateProfilePodExecutionRole2D0E4CB3",
+         "Arn"
+        ]
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "KongMicroservicesClusterCreationRoleDefaultPolicy5D0A673C",
+    "Roles": [
+     {
+      "Ref": "KongMicroservicesClusterCreationRole76E0EC80"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "EksStack/KongMicroservicesCluster/Resource/CreationRole/DefaultPolicy/Resource"
+   }
+  },
+  "KongMicroservicesCluster5B0ADCEE": {
+   "Type": "Custom::AWSCDK-EKS-Cluster",
+   "Properties": {
+    "ServiceToken": {
+     "Fn::GetAtt": [
+      "awscdkawseksClusterResourceProviderNestedStackawscdkawseksClusterResourceProviderNestedStackResource9827C454",
+      "Outputs.EksStackawscdkawseksClusterResourceProviderframeworkonEvent7CA25C3FArn"
+     ]
+    },
+    "Config": {
+     "name": "kong-microservices-cluster",
+     "version": "1.28",
+     "roleArn": {
+      "Fn::GetAtt": [
+       "KongMicroservicesClusterRole82C409ED",
+       "Arn"
+      ]
+     },
+     "kubernetesNetworkConfig": {
+      "ipFamily": "ipv4"
+     },
+     "resourcesVpcConfig": {
+      "subnetIds": [
+       {
+        "Fn::ImportValue": "NetworkingStack:ExportsOutputRefKongMicroservicesVpcPrivateSubnet1Subnet6EBE9ABE61C959C0"
+       },
+       {
+        "Fn::ImportValue": "NetworkingStack:ExportsOutputRefKongMicroservicesVpcPrivateSubnet2SubnetE1BAE109B3EC36B8"
+       }
+      ],
+      "securityGroupIds": [
+       {
+        "Fn::ImportValue": "NetworkingStack:ExportsOutputFnGetAttEksSecurityGroup1CEAF9CCGroupId30966257"
+       }
+      ],
+      "endpointPublicAccess": true,
+      "endpointPrivateAccess": true
+     },
+     "accessConfig": {}
+    },
+    "AssumeRoleArn": {
+     "Fn::GetAtt": [
+      "KongMicroservicesClusterCreationRole76E0EC80",
+      "Arn"
+     ]
+    },
+    "AttributesRevision": 5
+   },
+   "DependsOn": [
+    "KongMicroservicesClusterCreationRoleDefaultPolicy5D0A673C",
+    "KongMicroservicesClusterCreationRole76E0EC80"
+   ],
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "EksStack/KongMicroservicesCluster/Resource/Resource/Default"
+   }
+  },
+  "KongMicroservicesClusterKubectlReadyBarrier8F5639FB": {
+   "Type": "AWS::SSM::Parameter",
+   "Properties": {
+    "Type": "String",
+    "Value": "aws:cdk:eks:kubectl-ready"
+   },
+   "DependsOn": [
+    "KongMicroservicesClusterfargateprofileCoreSystemFargateProfilePodExecutionRole2D0E4CB3",
+    "KongMicroservicesClusterfargateprofileCoreSystemFargateProfile352C69D2",
+    "KongMicroservicesClusterfargateprofileDatabasesFargateProfilePodExecutionRoleF1EC94E1",
+    "KongMicroservicesClusterfargateprofileDatabasesFargateProfile0622B23D",
+    "KongMicroservicesClusterfargateprofileKongFargateProfilePodExecutionRoleE7275387",
+    "KongMicroservicesClusterfargateprofileKongFargateProfileADE45E09",
+    "KongMicroservicesClusterfargateprofileMicroservicesFargateProfilePodExecutionRoleF4FF7328",
+    "KongMicroservicesClusterfargateprofileMicroservicesFargateProfile1BE48BBE",
+    "KongMicroservicesClusterCreationRoleDefaultPolicy5D0A673C",
+    "KongMicroservicesClusterCreationRole76E0EC80",
+    "KongMicroservicesCluster5B0ADCEE"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "EksStack/KongMicroservicesCluster/KubectlReadyBarrier"
+   }
+  },
+  "KongMicroservicesClusterfargateprofileKongFargateProfilePodExecutionRoleE7275387": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "eks-fargate-pods.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/AmazonEKSFargatePodExecutionRolePolicy"
+       ]
+      ]
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "EksStack/KongMicroservicesCluster/fargate-profile-KongFargateProfile/PodExecutionRole/Resource"
+   }
+  },
+  "KongMicroservicesClusterfargateprofileKongFargateProfileADE45E09": {
+   "Type": "Custom::AWSCDK-EKS-FargateProfile",
+   "Properties": {
+    "ServiceToken": {
+     "Fn::GetAtt": [
+      "awscdkawseksClusterResourceProviderNestedStackawscdkawseksClusterResourceProviderNestedStackResource9827C454",
+      "Outputs.EksStackawscdkawseksClusterResourceProviderframeworkonEvent7CA25C3FArn"
+     ]
+    },
+    "AssumeRoleArn": {
+     "Fn::GetAtt": [
+      "KongMicroservicesClusterCreationRole76E0EC80",
+      "Arn"
+     ]
+    },
+    "Config": {
+     "clusterName": {
+      "Ref": "KongMicroservicesCluster5B0ADCEE"
+     },
+     "podExecutionRoleArn": {
+      "Fn::GetAtt": [
+       "KongMicroservicesClusterfargateprofileKongFargateProfilePodExecutionRoleE7275387",
+       "Arn"
+      ]
+     },
+     "selectors": [
+      {
+       "namespace": "kong"
+      }
+     ]
+    }
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "EksStack/KongMicroservicesCluster/fargate-profile-KongFargateProfile/Resource/Default"
+   }
+  },
+  "KongMicroservicesClusterAwsAuthmanifestA4647386": {
+   "Type": "Custom::AWSCDK-EKS-KubernetesResource",
+   "Properties": {
+    "ServiceToken": {
+     "Fn::GetAtt": [
+      "awscdkawseksKubectlProviderNestedStackawscdkawseksKubectlProviderNestedStackResourceA7AEBA6B",
+      "Outputs.EksStackawscdkawseksKubectlProviderframeworkonEvent47AB1AD9Arn"
+     ]
+    },
+    "Manifest": {
+     "Fn::Join": [
+      "",
+      [
+       "[{\"apiVersion\":\"v1\",\"kind\":\"ConfigMap\",\"metadata\":{\"name\":\"aws-auth\",\"namespace\":\"kube-system\",\"labels\":{\"aws.cdk.eks/prune-c86df9a99420fe18220980948e6471e34c3243432a\":\"\"}},\"data\":{\"mapRoles\":\"[{\\\"rolearn\\\":\\\"",
+       {
+        "Fn::GetAtt": [
+         "KongMicroservicesClusterfargateprofileKongFargateProfilePodExecutionRoleE7275387",
+         "Arn"
+        ]
+       },
+       "\\\",\\\"username\\\":\\\"system:node:{{SessionName}}\\\",\\\"groups\\\":[\\\"system:bootstrappers\\\",\\\"system:nodes\\\",\\\"system:node-proxier\\\"]},{\\\"rolearn\\\":\\\"",
+       {
+        "Fn::GetAtt": [
+         "KongMicroservicesClusterfargateprofileMicroservicesFargateProfilePodExecutionRoleF4FF7328",
+         "Arn"
+        ]
+       },
+       "\\\",\\\"username\\\":\\\"system:node:{{SessionName}}\\\",\\\"groups\\\":[\\\"system:bootstrappers\\\",\\\"system:nodes\\\",\\\"system:node-proxier\\\"]},{\\\"rolearn\\\":\\\"",
+       {
+        "Fn::GetAtt": [
+         "KongMicroservicesClusterfargateprofileDatabasesFargateProfilePodExecutionRoleF1EC94E1",
+         "Arn"
+        ]
+       },
+       "\\\",\\\"username\\\":\\\"system:node:{{SessionName}}\\\",\\\"groups\\\":[\\\"system:bootstrappers\\\",\\\"system:nodes\\\",\\\"system:node-proxier\\\"]},{\\\"rolearn\\\":\\\"",
+       {
+        "Fn::GetAtt": [
+         "KongMicroservicesClusterfargateprofileCoreSystemFargateProfilePodExecutionRole2D0E4CB3",
+         "Arn"
+        ]
+       },
+       "\\\",\\\"username\\\":\\\"system:node:{{SessionName}}\\\",\\\"groups\\\":[\\\"system:bootstrappers\\\",\\\"system:nodes\\\",\\\"system:node-proxier\\\"]}]\",\"mapUsers\":\"[]\",\"mapAccounts\":\"[]\"}}]"
+      ]
+     ]
+    },
+    "ClusterName": {
+     "Ref": "KongMicroservicesCluster5B0ADCEE"
+    },
+    "RoleArn": {
+     "Fn::GetAtt": [
+      "KongMicroservicesClusterCreationRole76E0EC80",
+      "Arn"
+     ]
+    },
+    "PruneLabel": "aws.cdk.eks/prune-c86df9a99420fe18220980948e6471e34c3243432a",
+    "Overwrite": true
+   },
+   "DependsOn": [
+    "KongMicroservicesClusterKubectlReadyBarrier8F5639FB"
+   ],
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "EksStack/KongMicroservicesCluster/AwsAuth/manifest/Resource/Default"
+   }
+  },
+  "KongMicroservicesClusterfargateprofileMicroservicesFargateProfilePodExecutionRoleF4FF7328": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "eks-fargate-pods.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/AmazonEKSFargatePodExecutionRolePolicy"
+       ]
+      ]
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "EksStack/KongMicroservicesCluster/fargate-profile-MicroservicesFargateProfile/PodExecutionRole/Resource"
+   }
+  },
+  "KongMicroservicesClusterfargateprofileMicroservicesFargateProfile1BE48BBE": {
+   "Type": "Custom::AWSCDK-EKS-FargateProfile",
+   "Properties": {
+    "ServiceToken": {
+     "Fn::GetAtt": [
+      "awscdkawseksClusterResourceProviderNestedStackawscdkawseksClusterResourceProviderNestedStackResource9827C454",
+      "Outputs.EksStackawscdkawseksClusterResourceProviderframeworkonEvent7CA25C3FArn"
+     ]
+    },
+    "AssumeRoleArn": {
+     "Fn::GetAtt": [
+      "KongMicroservicesClusterCreationRole76E0EC80",
+      "Arn"
+     ]
+    },
+    "Config": {
+     "clusterName": {
+      "Ref": "KongMicroservicesCluster5B0ADCEE"
+     },
+     "podExecutionRoleArn": {
+      "Fn::GetAtt": [
+       "KongMicroservicesClusterfargateprofileMicroservicesFargateProfilePodExecutionRoleF4FF7328",
+       "Arn"
+      ]
+     },
+     "selectors": [
+      {
+       "namespace": "microservices"
+      }
+     ]
+    }
+   },
+   "DependsOn": [
+    "KongMicroservicesClusterfargateprofileKongFargateProfilePodExecutionRoleE7275387",
+    "KongMicroservicesClusterfargateprofileKongFargateProfileADE45E09"
+   ],
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "EksStack/KongMicroservicesCluster/fargate-profile-MicroservicesFargateProfile/Resource/Default"
+   }
+  },
+  "KongMicroservicesClusterfargateprofileDatabasesFargateProfilePodExecutionRoleF1EC94E1": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "eks-fargate-pods.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/AmazonEKSFargatePodExecutionRolePolicy"
+       ]
+      ]
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "EksStack/KongMicroservicesCluster/fargate-profile-DatabasesFargateProfile/PodExecutionRole/Resource"
+   }
+  },
+  "KongMicroservicesClusterfargateprofileDatabasesFargateProfile0622B23D": {
+   "Type": "Custom::AWSCDK-EKS-FargateProfile",
+   "Properties": {
+    "ServiceToken": {
+     "Fn::GetAtt": [
+      "awscdkawseksClusterResourceProviderNestedStackawscdkawseksClusterResourceProviderNestedStackResource9827C454",
+      "Outputs.EksStackawscdkawseksClusterResourceProviderframeworkonEvent7CA25C3FArn"
+     ]
+    },
+    "AssumeRoleArn": {
+     "Fn::GetAtt": [
+      "KongMicroservicesClusterCreationRole76E0EC80",
+      "Arn"
+     ]
+    },
+    "Config": {
+     "clusterName": {
+      "Ref": "KongMicroservicesCluster5B0ADCEE"
+     },
+     "podExecutionRoleArn": {
+      "Fn::GetAtt": [
+       "KongMicroservicesClusterfargateprofileDatabasesFargateProfilePodExecutionRoleF1EC94E1",
+       "Arn"
+      ]
+     },
+     "selectors": [
+      {
+       "namespace": "databases"
+      }
+     ]
+    }
+   },
+   "DependsOn": [
+    "KongMicroservicesClusterfargateprofileMicroservicesFargateProfilePodExecutionRoleF4FF7328",
+    "KongMicroservicesClusterfargateprofileMicroservicesFargateProfile1BE48BBE"
+   ],
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "EksStack/KongMicroservicesCluster/fargate-profile-DatabasesFargateProfile/Resource/Default"
+   }
+  },
+  "KongMicroservicesClusterfargateprofileCoreSystemFargateProfilePodExecutionRole2D0E4CB3": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "eks-fargate-pods.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/AmazonEKSFargatePodExecutionRolePolicy"
+       ]
+      ]
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "EksStack/KongMicroservicesCluster/fargate-profile-CoreSystemFargateProfile/PodExecutionRole/Resource"
+   }
+  },
+  "KongMicroservicesClusterfargateprofileCoreSystemFargateProfile352C69D2": {
+   "Type": "Custom::AWSCDK-EKS-FargateProfile",
+   "Properties": {
+    "ServiceToken": {
+     "Fn::GetAtt": [
+      "awscdkawseksClusterResourceProviderNestedStackawscdkawseksClusterResourceProviderNestedStackResource9827C454",
+      "Outputs.EksStackawscdkawseksClusterResourceProviderframeworkonEvent7CA25C3FArn"
+     ]
+    },
+    "AssumeRoleArn": {
+     "Fn::GetAtt": [
+      "KongMicroservicesClusterCreationRole76E0EC80",
+      "Arn"
+     ]
+    },
+    "Config": {
+     "clusterName": {
+      "Ref": "KongMicroservicesCluster5B0ADCEE"
+     },
+     "podExecutionRoleArn": {
+      "Fn::GetAtt": [
+       "KongMicroservicesClusterfargateprofileCoreSystemFargateProfilePodExecutionRole2D0E4CB3",
+       "Arn"
+      ]
+     },
+     "selectors": [
+      {
+       "namespace": "kube-system"
+      },
+      {
+       "namespace": "kube-public"
+      }
+     ]
+    }
+   },
+   "DependsOn": [
+    "KongMicroservicesClusterfargateprofileDatabasesFargateProfilePodExecutionRoleF1EC94E1",
+    "KongMicroservicesClusterfargateprofileDatabasesFargateProfile0622B23D"
+   ],
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "EksStack/KongMicroservicesCluster/fargate-profile-CoreSystemFargateProfile/Resource/Default"
+   }
+  },
+  "KongMicroservicesClusterAwsLoadBalancerControllerSAConditionJson17245BC1": {
+   "Type": "Custom::AWSCDKCfnJson",
+   "Properties": {
+    "ServiceToken": {
+     "Fn::GetAtt": [
+      "AWSCDKCfnUtilsProviderCustomResourceProviderHandlerCF82AA57",
+      "Arn"
+     ]
+    },
+    "Value": {
+     "Fn::Join": [
+      "",
+      [
+       "{\"",
+       {
+        "Fn::Select": [
+         1,
+         {
+          "Fn::Split": [
+           ":oidc-provider/",
+           {
+            "Ref": "KongMicroservicesClusterOpenIdConnectProvider12D3A116"
+           }
+          ]
+         }
+        ]
+       },
+       ":aud\":\"sts.amazonaws.com\",\"",
+       {
+        "Fn::Select": [
+         1,
+         {
+          "Fn::Split": [
+           ":oidc-provider/",
+           {
+            "Ref": "KongMicroservicesClusterOpenIdConnectProvider12D3A116"
+           }
+          ]
+         }
+        ]
+       },
+       ":sub\":\"system:serviceaccount:kube-system:aws-load-balancer-controller\"}"
+      ]
+     ]
+    }
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "EksStack/KongMicroservicesCluster/AwsLoadBalancerControllerSA/ConditionJson/Resource/Default"
+   }
+  },
+  "KongMicroservicesClusterAwsLoadBalancerControllerSARole02E8133B": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRoleWithWebIdentity",
+       "Condition": {
+        "StringEquals": {
+         "Fn::GetAtt": [
+          "KongMicroservicesClusterAwsLoadBalancerControllerSAConditionJson17245BC1",
+          "Value"
+         ]
+        }
+       },
+       "Effect": "Allow",
+       "Principal": {
+        "Federated": {
+         "Ref": "KongMicroservicesClusterOpenIdConnectProvider12D3A116"
+        }
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "EksStack/KongMicroservicesCluster/AwsLoadBalancerControllerSA/Role/Resource"
+   }
+  },
+  "KongMicroservicesClusterAwsLoadBalancerControllerSARoleDefaultPolicyEEC4ED1F": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "iam:CreateServiceLinkedRole",
+        "ec2:Describe*",
+        "ec2:CreateSecurityGroup",
+        "ec2:CreateTags",
+        "ec2:AuthorizeSecurityGroupIngress",
+        "ec2:RevokeSecurityGroupIngress",
+        "ec2:DeleteSecurityGroup",
+        "elasticloadbalancing:*",
+        "waf-regional:*",
+        "wafv2:*",
+        "shield:*"
+       ],
+       "Effect": "Allow",
+       "Resource": "*"
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "KongMicroservicesClusterAwsLoadBalancerControllerSARoleDefaultPolicyEEC4ED1F",
+    "Roles": [
+     {
+      "Ref": "KongMicroservicesClusterAwsLoadBalancerControllerSARole02E8133B"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "EksStack/KongMicroservicesCluster/AwsLoadBalancerControllerSA/Role/DefaultPolicy/Resource"
+   }
+  },
+  "KongMicroservicesClusterAwsLoadBalancerControllerSAmanifestAwsLoadBalancerControllerSAServiceAccountResourceEFE14E44": {
+   "Type": "Custom::AWSCDK-EKS-KubernetesResource",
+   "Properties": {
+    "ServiceToken": {
+     "Fn::GetAtt": [
+      "awscdkawseksKubectlProviderNestedStackawscdkawseksKubectlProviderNestedStackResourceA7AEBA6B",
+      "Outputs.EksStackawscdkawseksKubectlProviderframeworkonEvent47AB1AD9Arn"
+     ]
+    },
+    "Manifest": {
+     "Fn::Join": [
+      "",
+      [
+       "[{\"apiVersion\":\"v1\",\"kind\":\"ServiceAccount\",\"metadata\":{\"name\":\"aws-load-balancer-controller\",\"namespace\":\"kube-system\",\"labels\":{\"aws.cdk.eks/prune-c856afde0308af20030f97eb9f0ccc2b4a9544215a\":\"\",\"app.kubernetes.io/name\":\"aws-load-balancer-controller\"},\"annotations\":{\"eks.amazonaws.com/role-arn\":\"",
+       {
+        "Fn::GetAtt": [
+         "KongMicroservicesClusterAwsLoadBalancerControllerSARole02E8133B",
+         "Arn"
+        ]
+       },
+       "\"}}}]"
+      ]
+     ]
+    },
+    "ClusterName": {
+     "Ref": "KongMicroservicesCluster5B0ADCEE"
+    },
+    "RoleArn": {
+     "Fn::GetAtt": [
+      "KongMicroservicesClusterCreationRole76E0EC80",
+      "Arn"
+     ]
+    },
+    "PruneLabel": "aws.cdk.eks/prune-c856afde0308af20030f97eb9f0ccc2b4a9544215a"
+   },
+   "DependsOn": [
+    "KongMicroservicesClusterKubectlReadyBarrier8F5639FB"
+   ],
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "EksStack/KongMicroservicesCluster/AwsLoadBalancerControllerSA/manifest-AwsLoadBalancerControllerSAServiceAccountResource/Resource/Default"
+   }
+  },
+  "KongMicroservicesClusterOpenIdConnectProvider12D3A116": {
+   "Type": "Custom::AWSCDKOpenIdConnectProvider",
+   "Properties": {
+    "ServiceToken": {
+     "Fn::GetAtt": [
+      "CustomAWSCDKOpenIdConnectProviderCustomResourceProviderHandlerF2C543E0",
+      "Arn"
+     ]
+    },
+    "ClientIDList": [
+     "sts.amazonaws.com"
+    ],
+    "Url": {
+     "Fn::GetAtt": [
+      "KongMicroservicesCluster5B0ADCEE",
+      "OpenIdConnectIssuerUrl"
+     ]
+    },
+    "RejectUnauthorized": false,
+    "CodeHash": "d75c48c9f82cde63e9bf414df335e84e8ac24f11eb34889be255b702aec71e50"
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "EksStack/KongMicroservicesCluster/OpenIdConnectProvider/Resource/Default"
+   }
+  },
+  "KongMicroservicesClustermanifestDatabaseNamespace208DF68B": {
+   "Type": "Custom::AWSCDK-EKS-KubernetesResource",
+   "Properties": {
+    "ServiceToken": {
+     "Fn::GetAtt": [
+      "awscdkawseksKubectlProviderNestedStackawscdkawseksKubectlProviderNestedStackResourceA7AEBA6B",
+      "Outputs.EksStackawscdkawseksKubectlProviderframeworkonEvent47AB1AD9Arn"
+     ]
+    },
+    "Manifest": "[{\"apiVersion\":\"v1\",\"kind\":\"Namespace\",\"metadata\":{\"name\":\"databases\",\"labels\":{\"aws.cdk.eks/prune-c851e4fcb8a8214a47572ef0c56e4cd4efc9081d2a\":\"\"}}}]",
+    "ClusterName": {
+     "Ref": "KongMicroservicesCluster5B0ADCEE"
+    },
+    "RoleArn": {
+     "Fn::GetAtt": [
+      "KongMicroservicesClusterCreationRole76E0EC80",
+      "Arn"
+     ]
+    },
+    "PruneLabel": "aws.cdk.eks/prune-c851e4fcb8a8214a47572ef0c56e4cd4efc9081d2a"
+   },
+   "DependsOn": [
+    "KongMicroservicesClusterKubectlReadyBarrier8F5639FB"
+   ],
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "EksStack/KongMicroservicesCluster/manifest-DatabaseNamespace/Resource/Default"
+   }
+  },
+  "KongMicroservicesClustermanifestPostgresStatefulSet6148703A": {
+   "Type": "Custom::AWSCDK-EKS-KubernetesResource",
+   "Properties": {
+    "ServiceToken": {
+     "Fn::GetAtt": [
+      "awscdkawseksKubectlProviderNestedStackawscdkawseksKubectlProviderNestedStackResourceA7AEBA6B",
+      "Outputs.EksStackawscdkawseksKubectlProviderframeworkonEvent47AB1AD9Arn"
+     ]
+    },
+    "Manifest": "[{\"apiVersion\":\"apps/v1\",\"kind\":\"StatefulSet\",\"metadata\":{\"name\":\"postgres\",\"namespace\":\"databases\",\"labels\":{\"aws.cdk.eks/prune-c84881e9f7ebbd921abdd33947778bf33945cd91e7\":\"\"}},\"spec\":{\"serviceName\":\"postgres\",\"replicas\":1,\"selector\":{\"matchLabels\":{\"app\":\"postgres\"}},\"template\":{\"metadata\":{\"labels\":{\"app\":\"postgres\"}},\"spec\":{\"volumes\":[{\"name\":\"init-scripts\",\"configMap\":{\"name\":\"postgres-init-script\"}}],\"containers\":[{\"image\":\"postgres:16-alpine\",\"volumeMounts\":[{\"name\":\"postgres-storage\",\"mountPath\":\"/var/lib/postgresql/data\"},{\"name\":\"init-scripts\",\"mountPath\":\"/docker-entrypoint-initdb.d\"}],\"env\":[{\"value\":\"postgres\",\"name\":\"POSTGRES_USER\"},{\"value\":\"postgres\",\"name\":\"POSTGRES_PASSWORD\"},{\"value\":\"/var/lib/postgresql/data/pgdata\",\"name\":\"PGDATA\"}],\"ports\":[{\"name\":\"postgres\",\"containerPort\":5432}],\"name\":\"postgres\"}]}},\"volumeClaimTemplates\":[{\"spec\":{\"resources\":{\"requests\":{\"storage\":\"10Gi\"}},\"accessModes\":[\"ReadWriteOnce\"]},\"metadata\":{\"name\":\"postgres-storage\"}}]}}]",
+    "ClusterName": {
+     "Ref": "KongMicroservicesCluster5B0ADCEE"
+    },
+    "RoleArn": {
+     "Fn::GetAtt": [
+      "KongMicroservicesClusterCreationRole76E0EC80",
+      "Arn"
+     ]
+    },
+    "PruneLabel": "aws.cdk.eks/prune-c84881e9f7ebbd921abdd33947778bf33945cd91e7"
+   },
+   "DependsOn": [
+    "KongMicroservicesClusterKubectlReadyBarrier8F5639FB",
+    "KongMicroservicesClustermanifestDatabaseNamespace208DF68B"
+   ],
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "EksStack/KongMicroservicesCluster/manifest-PostgresStatefulSet/Resource/Default"
+   }
+  },
+  "KongMicroservicesClustermanifestPostgresService73D206A7": {
+   "Type": "Custom::AWSCDK-EKS-KubernetesResource",
+   "Properties": {
+    "ServiceToken": {
+     "Fn::GetAtt": [
+      "awscdkawseksKubectlProviderNestedStackawscdkawseksKubectlProviderNestedStackResourceA7AEBA6B",
+      "Outputs.EksStackawscdkawseksKubectlProviderframeworkonEvent47AB1AD9Arn"
+     ]
+    },
+    "Manifest": "[{\"kind\":\"Service\",\"spec\":{\"selector\":{\"app\":\"postgres\"},\"clusterIP\":\"None\",\"ports\":[{\"port\":5432,\"targetPort\":5432}]},\"metadata\":{\"namespace\":\"databases\",\"name\":\"postgres\",\"labels\":{\"aws.cdk.eks/prune-c851b98d76710cd4f580850a88974b0d534c379940\":\"\"}},\"apiVersion\":\"v1\"}]",
+    "ClusterName": {
+     "Ref": "KongMicroservicesCluster5B0ADCEE"
+    },
+    "RoleArn": {
+     "Fn::GetAtt": [
+      "KongMicroservicesClusterCreationRole76E0EC80",
+      "Arn"
+     ]
+    },
+    "PruneLabel": "aws.cdk.eks/prune-c851b98d76710cd4f580850a88974b0d534c379940"
+   },
+   "DependsOn": [
+    "KongMicroservicesClusterKubectlReadyBarrier8F5639FB",
+    "KongMicroservicesClustermanifestDatabaseNamespace208DF68B"
+   ],
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "EksStack/KongMicroservicesCluster/manifest-PostgresService/Resource/Default"
+   }
+  },
+  "KongMicroservicesClustermanifestPostgresInitScript0809BD98": {
+   "Type": "Custom::AWSCDK-EKS-KubernetesResource",
+   "Properties": {
+    "ServiceToken": {
+     "Fn::GetAtt": [
+      "awscdkawseksKubectlProviderNestedStackawscdkawseksKubectlProviderNestedStackResourceA7AEBA6B",
+      "Outputs.EksStackawscdkawseksKubectlProviderframeworkonEvent47AB1AD9Arn"
+     ]
+    },
+    "Manifest": "[{\"kind\":\"ConfigMap\",\"data\":{\"init-databases.sql\":\"CREATE DATABASE product_db;\\nCREATE DATABASE order_db;\\nCREATE DATABASE inventory_db;\\nCREATE DATABASE kong;\\n\"},\"metadata\":{\"namespace\":\"databases\",\"name\":\"postgres-init-script\",\"labels\":{\"aws.cdk.eks/prune-c84443eb2e8b0b403a0e87c9c6a07f3bfb0b4cc1fe\":\"\"}},\"apiVersion\":\"v1\"}]",
+    "ClusterName": {
+     "Ref": "KongMicroservicesCluster5B0ADCEE"
+    },
+    "RoleArn": {
+     "Fn::GetAtt": [
+      "KongMicroservicesClusterCreationRole76E0EC80",
+      "Arn"
+     ]
+    },
+    "PruneLabel": "aws.cdk.eks/prune-c84443eb2e8b0b403a0e87c9c6a07f3bfb0b4cc1fe"
+   },
+   "DependsOn": [
+    "KongMicroservicesClusterKubectlReadyBarrier8F5639FB",
+    "KongMicroservicesClustermanifestDatabaseNamespace208DF68B"
+   ],
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "EksStack/KongMicroservicesCluster/manifest-PostgresInitScript/Resource/Default"
+   }
+  },
+  "KongMicroservicesClustermanifestMicroservicesNamespaceBEB5BC0E": {
+   "Type": "Custom::AWSCDK-EKS-KubernetesResource",
+   "Properties": {
+    "ServiceToken": {
+     "Fn::GetAtt": [
+      "awscdkawseksKubectlProviderNestedStackawscdkawseksKubectlProviderNestedStackResourceA7AEBA6B",
+      "Outputs.EksStackawscdkawseksKubectlProviderframeworkonEvent47AB1AD9Arn"
+     ]
+    },
+    "Manifest": "[{\"kind\":\"Namespace\",\"metadata\":{\"name\":\"microservices\",\"labels\":{\"aws.cdk.eks/prune-c81e48f61013ac8e56d6c48afe3ccc5dff0d239c8e\":\"\"}},\"apiVersion\":\"v1\"}]",
+    "ClusterName": {
+     "Ref": "KongMicroservicesCluster5B0ADCEE"
+    },
+    "RoleArn": {
+     "Fn::GetAtt": [
+      "KongMicroservicesClusterCreationRole76E0EC80",
+      "Arn"
+     ]
+    },
+    "PruneLabel": "aws.cdk.eks/prune-c81e48f61013ac8e56d6c48afe3ccc5dff0d239c8e"
+   },
+   "DependsOn": [
+    "KongMicroservicesClusterKubectlReadyBarrier8F5639FB"
+   ],
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "EksStack/KongMicroservicesCluster/manifest-MicroservicesNamespace/Resource/Default"
+   }
+  },
+  "KongMicroservicesClustermanifestproductserviceDeploymentF6B0241B": {
+   "Type": "Custom::AWSCDK-EKS-KubernetesResource",
+   "Properties": {
+    "ServiceToken": {
+     "Fn::GetAtt": [
+      "awscdkawseksKubectlProviderNestedStackawscdkawseksKubectlProviderNestedStackResourceA7AEBA6B",
+      "Outputs.EksStackawscdkawseksKubectlProviderframeworkonEvent47AB1AD9Arn"
+     ]
+    },
+    "Manifest": {
+     "Fn::Join": [
+      "",
+      [
+       "[{\"kind\":\"Deployment\",\"spec\":{\"replicas\":2,\"template\":{\"spec\":{\"containers\":[{\"image\":\"",
+       {
+        "Fn::Select": [
+         4,
+         {
+          "Fn::Split": [
+           ":",
+           {
+            "Fn::ImportValue": "EcrStack:ExportsOutputFnGetAttProductServiceRepository7B8211CBArn1E4B043D"
+           }
+          ]
+         }
+        ]
+       },
+       ".dkr.ecr.",
+       {
+        "Fn::Select": [
+         3,
+         {
+          "Fn::Split": [
+           ":",
+           {
+            "Fn::ImportValue": "EcrStack:ExportsOutputFnGetAttProductServiceRepository7B8211CBArn1E4B043D"
+           }
+          ]
+         }
+        ]
+       },
+       ".",
+       {
+        "Ref": "AWS::URLSuffix"
+       },
+       "/",
+       {
+        "Fn::ImportValue": "EcrStack:ExportsOutputRefProductServiceRepository7B8211CB74D021B1"
+       },
+       ":latest\",\"env\":[{\"value\":\"jdbc:postgresql://postgres.databases.svc.cluster.local:5432/product_db\",\"name\":\"SPRING_DATASOURCE_URL\"},{\"value\":\"postgres\",\"name\":\"SPRING_DATASOURCE_USERNAME\"},{\"value\":\"postgres\",\"name\":\"SPRING_DATASOURCE_PASSWORD\"}],\"ports\":[{\"containerPort\":8081}],\"imagePullPolicy\":\"Always\",\"name\":\"product-service\"}]},\"metadata\":{\"labels\":{\"app\":\"product-service\"}}},\"selector\":{\"matchLabels\":{\"app\":\"product-service\"}}},\"metadata\":{\"namespace\":\"microservices\",\"name\":\"product-service\",\"labels\":{\"aws.cdk.eks/prune-c84c602d2ec06b42e9296d0dd81ce79d71ba9e7cc6\":\"\"}},\"apiVersion\":\"apps/v1\"}]"
+      ]
+     ]
+    },
+    "ClusterName": {
+     "Ref": "KongMicroservicesCluster5B0ADCEE"
+    },
+    "RoleArn": {
+     "Fn::GetAtt": [
+      "KongMicroservicesClusterCreationRole76E0EC80",
+      "Arn"
+     ]
+    },
+    "PruneLabel": "aws.cdk.eks/prune-c84c602d2ec06b42e9296d0dd81ce79d71ba9e7cc6"
+   },
+   "DependsOn": [
+    "KongMicroservicesClusterKubectlReadyBarrier8F5639FB",
+    "KongMicroservicesClustermanifestMicroservicesNamespaceBEB5BC0E"
+   ],
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "EksStack/KongMicroservicesCluster/manifest-product-service-Deployment/Resource/Default"
+   }
+  },
+  "KongMicroservicesClustermanifestproductserviceService257E6A4E": {
+   "Type": "Custom::AWSCDK-EKS-KubernetesResource",
+   "Properties": {
+    "ServiceToken": {
+     "Fn::GetAtt": [
+      "awscdkawseksKubectlProviderNestedStackawscdkawseksKubectlProviderNestedStackResourceA7AEBA6B",
+      "Outputs.EksStackawscdkawseksKubectlProviderframeworkonEvent47AB1AD9Arn"
+     ]
+    },
+    "Manifest": "[{\"kind\":\"Service\",\"spec\":{\"type\":\"ClusterIP\",\"selector\":{\"app\":\"product-service\"},\"ports\":[{\"port\":8081,\"protocol\":\"TCP\",\"targetPort\":8081}]},\"metadata\":{\"namespace\":\"microservices\",\"name\":\"product-service\",\"labels\":{\"aws.cdk.eks/prune-c8ca16ad56d13b5fa671a431ae03bc97cc43496c00\":\"\"}},\"apiVersion\":\"v1\"}]",
+    "ClusterName": {
+     "Ref": "KongMicroservicesCluster5B0ADCEE"
+    },
+    "RoleArn": {
+     "Fn::GetAtt": [
+      "KongMicroservicesClusterCreationRole76E0EC80",
+      "Arn"
+     ]
+    },
+    "PruneLabel": "aws.cdk.eks/prune-c8ca16ad56d13b5fa671a431ae03bc97cc43496c00"
+   },
+   "DependsOn": [
+    "KongMicroservicesClusterKubectlReadyBarrier8F5639FB",
+    "KongMicroservicesClustermanifestMicroservicesNamespaceBEB5BC0E"
+   ],
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "EksStack/KongMicroservicesCluster/manifest-product-service-Service/Resource/Default"
+   }
+  },
+  "KongMicroservicesClustermanifestproductserviceIngressA8D65FE5": {
+   "Type": "Custom::AWSCDK-EKS-KubernetesResource",
+   "Properties": {
+    "ServiceToken": {
+     "Fn::GetAtt": [
+      "awscdkawseksKubectlProviderNestedStackawscdkawseksKubectlProviderNestedStackResourceA7AEBA6B",
+      "Outputs.EksStackawscdkawseksKubectlProviderframeworkonEvent47AB1AD9Arn"
+     ]
+    },
+    "Manifest": "[{\"kind\":\"Ingress\",\"spec\":{\"rules\":[{\"http\":{\"paths\":[{\"path\":\"/api/product\",\"pathType\":\"Prefix\",\"backend\":{\"service\":{\"port\":{\"number\":8081},\"name\":\"product-service\"}}}]}}]},\"metadata\":{\"name\":\"product-service\",\"namespace\":\"microservices\",\"annotations\":{\"kubernetes.io/ingress.class\":\"kong\"},\"labels\":{\"aws.cdk.eks/prune-c8032684afd3ec755db7699c8d0b46d66c2734e3da\":\"\"}},\"apiVersion\":\"networking.k8s.io/v1\"}]",
+    "ClusterName": {
+     "Ref": "KongMicroservicesCluster5B0ADCEE"
+    },
+    "RoleArn": {
+     "Fn::GetAtt": [
+      "KongMicroservicesClusterCreationRole76E0EC80",
+      "Arn"
+     ]
+    },
+    "PruneLabel": "aws.cdk.eks/prune-c8032684afd3ec755db7699c8d0b46d66c2734e3da"
+   },
+   "DependsOn": [
+    "AwsLoadBalancerController05861808",
+    "KongMicroservicesClusterKubectlReadyBarrier8F5639FB",
+    "KongMicroservicesClustermanifestMicroservicesNamespaceBEB5BC0E"
+   ],
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "EksStack/KongMicroservicesCluster/manifest-product-service-Ingress/Resource/Default"
+   }
+  },
+  "KongMicroservicesClustermanifestinventoryserviceDeployment1B780AFF": {
+   "Type": "Custom::AWSCDK-EKS-KubernetesResource",
+   "Properties": {
+    "ServiceToken": {
+     "Fn::GetAtt": [
+      "awscdkawseksKubectlProviderNestedStackawscdkawseksKubectlProviderNestedStackResourceA7AEBA6B",
+      "Outputs.EksStackawscdkawseksKubectlProviderframeworkonEvent47AB1AD9Arn"
+     ]
+    },
+    "Manifest": {
+     "Fn::Join": [
+      "",
+      [
+       "[{\"kind\":\"Deployment\",\"spec\":{\"replicas\":2,\"template\":{\"spec\":{\"containers\":[{\"image\":\"",
+       {
+        "Fn::Select": [
+         4,
+         {
+          "Fn::Split": [
+           ":",
+           {
+            "Fn::ImportValue": "EcrStack:ExportsOutputFnGetAttInventoryServiceRepository136F3D19Arn96F96D27"
+           }
+          ]
+         }
+        ]
+       },
+       ".dkr.ecr.",
+       {
+        "Fn::Select": [
+         3,
+         {
+          "Fn::Split": [
+           ":",
+           {
+            "Fn::ImportValue": "EcrStack:ExportsOutputFnGetAttInventoryServiceRepository136F3D19Arn96F96D27"
+           }
+          ]
+         }
+        ]
+       },
+       ".",
+       {
+        "Ref": "AWS::URLSuffix"
+       },
+       "/",
+       {
+        "Fn::ImportValue": "EcrStack:ExportsOutputRefInventoryServiceRepository136F3D193426C416"
+       },
+       ":latest\",\"env\":[{\"value\":\"jdbc:postgresql://postgres.databases.svc.cluster.local:5432/inventory_db\",\"name\":\"SPRING_DATASOURCE_URL\"},{\"value\":\"postgres\",\"name\":\"SPRING_DATASOURCE_USERNAME\"},{\"value\":\"postgres\",\"name\":\"SPRING_DATASOURCE_PASSWORD\"}],\"ports\":[{\"containerPort\":8082}],\"imagePullPolicy\":\"Always\",\"name\":\"inventory-service\"}]},\"metadata\":{\"labels\":{\"app\":\"inventory-service\"}}},\"selector\":{\"matchLabels\":{\"app\":\"inventory-service\"}}},\"metadata\":{\"namespace\":\"microservices\",\"name\":\"inventory-service\",\"labels\":{\"aws.cdk.eks/prune-c81c9b39f8a890c27bbee9296226ce1695a8ff76a9\":\"\"}},\"apiVersion\":\"apps/v1\"}]"
+      ]
+     ]
+    },
+    "ClusterName": {
+     "Ref": "KongMicroservicesCluster5B0ADCEE"
+    },
+    "RoleArn": {
+     "Fn::GetAtt": [
+      "KongMicroservicesClusterCreationRole76E0EC80",
+      "Arn"
+     ]
+    },
+    "PruneLabel": "aws.cdk.eks/prune-c81c9b39f8a890c27bbee9296226ce1695a8ff76a9"
+   },
+   "DependsOn": [
+    "KongMicroservicesClusterKubectlReadyBarrier8F5639FB",
+    "KongMicroservicesClustermanifestMicroservicesNamespaceBEB5BC0E"
+   ],
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "EksStack/KongMicroservicesCluster/manifest-inventory-service-Deployment/Resource/Default"
+   }
+  },
+  "KongMicroservicesClustermanifestinventoryserviceServiceB62A1794": {
+   "Type": "Custom::AWSCDK-EKS-KubernetesResource",
+   "Properties": {
+    "ServiceToken": {
+     "Fn::GetAtt": [
+      "awscdkawseksKubectlProviderNestedStackawscdkawseksKubectlProviderNestedStackResourceA7AEBA6B",
+      "Outputs.EksStackawscdkawseksKubectlProviderframeworkonEvent47AB1AD9Arn"
+     ]
+    },
+    "Manifest": "[{\"kind\":\"Service\",\"spec\":{\"type\":\"ClusterIP\",\"selector\":{\"app\":\"inventory-service\"},\"ports\":[{\"port\":8082,\"protocol\":\"TCP\",\"targetPort\":8082}]},\"metadata\":{\"namespace\":\"microservices\",\"name\":\"inventory-service\",\"labels\":{\"aws.cdk.eks/prune-c84a155f8e2faacb36c2a16685734bfe5754f4724b\":\"\"}},\"apiVersion\":\"v1\"}]",
+    "ClusterName": {
+     "Ref": "KongMicroservicesCluster5B0ADCEE"
+    },
+    "RoleArn": {
+     "Fn::GetAtt": [
+      "KongMicroservicesClusterCreationRole76E0EC80",
+      "Arn"
+     ]
+    },
+    "PruneLabel": "aws.cdk.eks/prune-c84a155f8e2faacb36c2a16685734bfe5754f4724b"
+   },
+   "DependsOn": [
+    "KongMicroservicesClusterKubectlReadyBarrier8F5639FB",
+    "KongMicroservicesClustermanifestMicroservicesNamespaceBEB5BC0E"
+   ],
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "EksStack/KongMicroservicesCluster/manifest-inventory-service-Service/Resource/Default"
+   }
+  },
+  "KongMicroservicesClustermanifestinventoryserviceIngress20A988D1": {
+   "Type": "Custom::AWSCDK-EKS-KubernetesResource",
+   "Properties": {
+    "ServiceToken": {
+     "Fn::GetAtt": [
+      "awscdkawseksKubectlProviderNestedStackawscdkawseksKubectlProviderNestedStackResourceA7AEBA6B",
+      "Outputs.EksStackawscdkawseksKubectlProviderframeworkonEvent47AB1AD9Arn"
+     ]
+    },
+    "Manifest": "[{\"kind\":\"Ingress\",\"spec\":{\"rules\":[{\"http\":{\"paths\":[{\"path\":\"/api/inventory\",\"pathType\":\"Prefix\",\"backend\":{\"service\":{\"port\":{\"number\":8082},\"name\":\"inventory-service\"}}}]}}]},\"metadata\":{\"name\":\"inventory-service\",\"namespace\":\"microservices\",\"annotations\":{\"kubernetes.io/ingress.class\":\"kong\"},\"labels\":{\"aws.cdk.eks/prune-c88aa4d5082a38d3188ea3b63cefa5f8cff6ac582b\":\"\"}},\"apiVersion\":\"networking.k8s.io/v1\"}]",
+    "ClusterName": {
+     "Ref": "KongMicroservicesCluster5B0ADCEE"
+    },
+    "RoleArn": {
+     "Fn::GetAtt": [
+      "KongMicroservicesClusterCreationRole76E0EC80",
+      "Arn"
+     ]
+    },
+    "PruneLabel": "aws.cdk.eks/prune-c88aa4d5082a38d3188ea3b63cefa5f8cff6ac582b"
+   },
+   "DependsOn": [
+    "AwsLoadBalancerController05861808",
+    "KongMicroservicesClusterKubectlReadyBarrier8F5639FB",
+    "KongMicroservicesClustermanifestMicroservicesNamespaceBEB5BC0E"
+   ],
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "EksStack/KongMicroservicesCluster/manifest-inventory-service-Ingress/Resource/Default"
+   }
+  },
+  "KongMicroservicesClustermanifestorderserviceDeployment85D4FB8F": {
+   "Type": "Custom::AWSCDK-EKS-KubernetesResource",
+   "Properties": {
+    "ServiceToken": {
+     "Fn::GetAtt": [
+      "awscdkawseksKubectlProviderNestedStackawscdkawseksKubectlProviderNestedStackResourceA7AEBA6B",
+      "Outputs.EksStackawscdkawseksKubectlProviderframeworkonEvent47AB1AD9Arn"
+     ]
+    },
+    "Manifest": {
+     "Fn::Join": [
+      "",
+      [
+       "[{\"kind\":\"Deployment\",\"spec\":{\"replicas\":2,\"template\":{\"spec\":{\"containers\":[{\"image\":\"",
+       {
+        "Fn::Select": [
+         4,
+         {
+          "Fn::Split": [
+           ":",
+           {
+            "Fn::ImportValue": "EcrStack:ExportsOutputFnGetAttOrderServiceRepository86684BF7Arn04558D10"
+           }
+          ]
+         }
+        ]
+       },
+       ".dkr.ecr.",
+       {
+        "Fn::Select": [
+         3,
+         {
+          "Fn::Split": [
+           ":",
+           {
+            "Fn::ImportValue": "EcrStack:ExportsOutputFnGetAttOrderServiceRepository86684BF7Arn04558D10"
+           }
+          ]
+         }
+        ]
+       },
+       ".",
+       {
+        "Ref": "AWS::URLSuffix"
+       },
+       "/",
+       {
+        "Fn::ImportValue": "EcrStack:ExportsOutputRefOrderServiceRepository86684BF7C148017B"
+       },
+       ":latest\",\"env\":[{\"value\":\"jdbc:postgresql://postgres.databases.svc.cluster.local:5432/order_db\",\"name\":\"SPRING_DATASOURCE_URL\"},{\"value\":\"postgres\",\"name\":\"SPRING_DATASOURCE_USERNAME\"},{\"value\":\"postgres\",\"name\":\"SPRING_DATASOURCE_PASSWORD\"},{\"value\":\"http://product-service:8081\",\"name\":\"SERVICES_PRODUCT_SERVICE_URL\"},{\"value\":\"http://inventory-service:8082\",\"name\":\"SERVICES_INVENTORY_SERVICE_URL\"}],\"ports\":[{\"containerPort\":8083}],\"imagePullPolicy\":\"Always\",\"name\":\"order-service\"}]},\"metadata\":{\"labels\":{\"app\":\"order-service\"}}},\"selector\":{\"matchLabels\":{\"app\":\"order-service\"}}},\"metadata\":{\"namespace\":\"microservices\",\"name\":\"order-service\",\"labels\":{\"aws.cdk.eks/prune-c821bd79fed89b38887518105b3992a2922700dc27\":\"\"}},\"apiVersion\":\"apps/v1\"}]"
+      ]
+     ]
+    },
+    "ClusterName": {
+     "Ref": "KongMicroservicesCluster5B0ADCEE"
+    },
+    "RoleArn": {
+     "Fn::GetAtt": [
+      "KongMicroservicesClusterCreationRole76E0EC80",
+      "Arn"
+     ]
+    },
+    "PruneLabel": "aws.cdk.eks/prune-c821bd79fed89b38887518105b3992a2922700dc27"
+   },
+   "DependsOn": [
+    "KongMicroservicesClusterKubectlReadyBarrier8F5639FB",
+    "KongMicroservicesClustermanifestMicroservicesNamespaceBEB5BC0E"
+   ],
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "EksStack/KongMicroservicesCluster/manifest-order-service-Deployment/Resource/Default"
+   }
+  },
+  "KongMicroservicesClustermanifestorderserviceServiceBBF705F5": {
+   "Type": "Custom::AWSCDK-EKS-KubernetesResource",
+   "Properties": {
+    "ServiceToken": {
+     "Fn::GetAtt": [
+      "awscdkawseksKubectlProviderNestedStackawscdkawseksKubectlProviderNestedStackResourceA7AEBA6B",
+      "Outputs.EksStackawscdkawseksKubectlProviderframeworkonEvent47AB1AD9Arn"
+     ]
+    },
+    "Manifest": "[{\"kind\":\"Service\",\"spec\":{\"type\":\"ClusterIP\",\"selector\":{\"app\":\"order-service\"},\"ports\":[{\"port\":8083,\"protocol\":\"TCP\",\"targetPort\":8083}]},\"metadata\":{\"namespace\":\"microservices\",\"name\":\"order-service\",\"labels\":{\"aws.cdk.eks/prune-c819de14217f22ef7d88fdd1fd423388167d2b89c4\":\"\"}},\"apiVersion\":\"v1\"}]",
+    "ClusterName": {
+     "Ref": "KongMicroservicesCluster5B0ADCEE"
+    },
+    "RoleArn": {
+     "Fn::GetAtt": [
+      "KongMicroservicesClusterCreationRole76E0EC80",
+      "Arn"
+     ]
+    },
+    "PruneLabel": "aws.cdk.eks/prune-c819de14217f22ef7d88fdd1fd423388167d2b89c4"
+   },
+   "DependsOn": [
+    "KongMicroservicesClusterKubectlReadyBarrier8F5639FB",
+    "KongMicroservicesClustermanifestMicroservicesNamespaceBEB5BC0E"
+   ],
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "EksStack/KongMicroservicesCluster/manifest-order-service-Service/Resource/Default"
+   }
+  },
+  "KongMicroservicesClustermanifestorderserviceIngress96BE62E0": {
+   "Type": "Custom::AWSCDK-EKS-KubernetesResource",
+   "Properties": {
+    "ServiceToken": {
+     "Fn::GetAtt": [
+      "awscdkawseksKubectlProviderNestedStackawscdkawseksKubectlProviderNestedStackResourceA7AEBA6B",
+      "Outputs.EksStackawscdkawseksKubectlProviderframeworkonEvent47AB1AD9Arn"
+     ]
+    },
+    "Manifest": "[{\"kind\":\"Ingress\",\"spec\":{\"rules\":[{\"http\":{\"paths\":[{\"path\":\"/api/order\",\"pathType\":\"Prefix\",\"backend\":{\"service\":{\"port\":{\"number\":8083},\"name\":\"order-service\"}}}]}}]},\"metadata\":{\"name\":\"order-service\",\"namespace\":\"microservices\",\"annotations\":{\"kubernetes.io/ingress.class\":\"kong\"},\"labels\":{\"aws.cdk.eks/prune-c857794d532e52ef1aa9b40230b32c32ddddcbf5fb\":\"\"}},\"apiVersion\":\"networking.k8s.io/v1\"}]",
+    "ClusterName": {
+     "Ref": "KongMicroservicesCluster5B0ADCEE"
+    },
+    "RoleArn": {
+     "Fn::GetAtt": [
+      "KongMicroservicesClusterCreationRole76E0EC80",
+      "Arn"
+     ]
+    },
+    "PruneLabel": "aws.cdk.eks/prune-c857794d532e52ef1aa9b40230b32c32ddddcbf5fb"
+   },
+   "DependsOn": [
+    "AwsLoadBalancerController05861808",
+    "KongMicroservicesClusterKubectlReadyBarrier8F5639FB",
+    "KongMicroservicesClustermanifestMicroservicesNamespaceBEB5BC0E"
+   ],
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "EksStack/KongMicroservicesCluster/manifest-order-service-Ingress/Resource/Default"
+   }
+  },
+  "awscdkawseksClusterResourceProviderNestedStackawscdkawseksClusterResourceProviderNestedStackResource9827C454": {
+   "Type": "AWS::CloudFormation::Stack",
+   "Properties": {
+    "TemplateURL": {
+     "Fn::Join": [
+      "",
+      [
+       "https://s3.ap-southeast-1.",
+       {
+        "Ref": "AWS::URLSuffix"
+       },
+       "/",
+       {
+        "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-ap-southeast-1"
+       },
+       "/45eeda0c49d0d2c891817ef0ab336947129b127fbdec0aa41b26515196dad3f2.json"
+      ]
+     ]
+    }
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "EksStack/@aws-cdk--aws-eks.ClusterResourceProvider.NestedStack/@aws-cdk--aws-eks.ClusterResourceProvider.NestedStackResource",
+    "aws:asset:path": "EksStackawscdkawseksClusterResourceProvider59ABF550.nested.template.json",
+    "aws:asset:property": "TemplateURL"
+   }
+  },
+  "awscdkawseksKubectlProviderNestedStackawscdkawseksKubectlProviderNestedStackResourceA7AEBA6B": {
+   "Type": "AWS::CloudFormation::Stack",
+   "Properties": {
+    "Parameters": {
+     "referencetoEksStackKubectlLayer83CC151FRef": {
+      "Ref": "KubectlLayer600207B5"
+     },
+     "referencetoEksStackKongMicroservicesClusterKubectlHandlerRole55EFD592Arn": {
+      "Fn::GetAtt": [
+       "KongMicroservicesClusterKubectlHandlerRole3006A08A",
+       "Arn"
+      ]
+     },
+     "referencetoEksStackKongMicroservicesClusterB6701A6CClusterSecurityGroupId": {
+      "Fn::GetAtt": [
+       "KongMicroservicesCluster5B0ADCEE",
+       "ClusterSecurityGroupId"
+      ]
+     }
+    },
+    "TemplateURL": {
+     "Fn::Join": [
+      "",
+      [
+       "https://s3.ap-southeast-1.",
+       {
+        "Ref": "AWS::URLSuffix"
+       },
+       "/",
+       {
+        "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-ap-southeast-1"
+       },
+       "/0177ca4e2a3c42200dba69c3b6679eb517dddab25ef7180026ce22bb9020ae04.json"
+      ]
+     ]
+    }
+   },
+   "DependsOn": [
+    "KongMicroservicesClusterKubectlHandlerRoleDefaultPolicyF65B049A",
+    "KongMicroservicesClusterKubectlHandlerRole3006A08A"
+   ],
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "EksStack/@aws-cdk--aws-eks.KubectlProvider.NestedStack/@aws-cdk--aws-eks.KubectlProvider.NestedStackResource",
+    "aws:asset:path": "EksStackawscdkawseksKubectlProvider49B99589.nested.template.json",
+    "aws:asset:property": "TemplateURL"
+   }
+  },
+  "CustomAWSCDKOpenIdConnectProviderCustomResourceProviderRole517FED65": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Version": "2012-10-17",
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ]
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Sub": "arn:${AWS::Partition}:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+     }
+    ],
+    "Policies": [
+     {
+      "PolicyName": "Inline",
+      "PolicyDocument": {
+       "Version": "2012-10-17",
+       "Statement": [
+        {
+         "Effect": "Allow",
+         "Resource": "*",
+         "Action": [
+          "iam:CreateOpenIDConnectProvider",
+          "iam:DeleteOpenIDConnectProvider",
+          "iam:UpdateOpenIDConnectProviderThumbprint",
+          "iam:AddClientIDToOpenIDConnectProvider",
+          "iam:RemoveClientIDFromOpenIDConnectProvider"
+         ]
+        }
+       ]
+      }
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "EksStack/Custom::AWSCDKOpenIdConnectProviderCustomResourceProvider/Role"
+   }
+  },
+  "CustomAWSCDKOpenIdConnectProviderCustomResourceProviderHandlerF2C543E0": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": {
+      "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-ap-southeast-1"
+     },
+     "S3Key": "d75c48c9f82cde63e9bf414df335e84e8ac24f11eb34889be255b702aec71e50.zip"
+    },
+    "Timeout": 900,
+    "MemorySize": 128,
+    "Handler": "__entrypoint__.handler",
+    "Role": {
+     "Fn::GetAtt": [
+      "CustomAWSCDKOpenIdConnectProviderCustomResourceProviderRole517FED65",
+      "Arn"
+     ]
+    },
+    "Runtime": "nodejs22.x"
+   },
+   "DependsOn": [
+    "CustomAWSCDKOpenIdConnectProviderCustomResourceProviderRole517FED65"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "EksStack/Custom::AWSCDKOpenIdConnectProviderCustomResourceProvider/Handler",
+    "aws:asset:path": "asset.d75c48c9f82cde63e9bf414df335e84e8ac24f11eb34889be255b702aec71e50",
+    "aws:asset:property": "Code"
+   }
+  },
+  "AWSCDKCfnUtilsProviderCustomResourceProviderRoleFE0EE867": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Version": "2012-10-17",
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ]
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Sub": "arn:${AWS::Partition}:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "EksStack/AWSCDKCfnUtilsProviderCustomResourceProvider/Role"
+   }
+  },
+  "AWSCDKCfnUtilsProviderCustomResourceProviderHandlerCF82AA57": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": {
+      "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-ap-southeast-1"
+     },
+     "S3Key": "c398d076c966a47ee4ef862fbaf5ea530bf035b867a0195292c99f77b323ed80.zip"
+    },
+    "Timeout": 900,
+    "MemorySize": 128,
+    "Handler": "__entrypoint__.handler",
+    "Role": {
+     "Fn::GetAtt": [
+      "AWSCDKCfnUtilsProviderCustomResourceProviderRoleFE0EE867",
+      "Arn"
+     ]
+    },
+    "Runtime": "nodejs22.x"
+   },
+   "DependsOn": [
+    "AWSCDKCfnUtilsProviderCustomResourceProviderRoleFE0EE867"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "EksStack/AWSCDKCfnUtilsProviderCustomResourceProvider/Handler",
+    "aws:asset:path": "asset.c398d076c966a47ee4ef862fbaf5ea530bf035b867a0195292c99f77b323ed80",
+    "aws:asset:property": "Code"
+   }
+  },
+  "AwsLoadBalancerController05861808": {
+   "Type": "Custom::AWSCDK-EKS-HelmChart",
+   "Properties": {
+    "ServiceToken": {
+     "Fn::GetAtt": [
+      "awscdkawseksKubectlProviderNestedStackawscdkawseksKubectlProviderNestedStackResourceA7AEBA6B",
+      "Outputs.EksStackawscdkawseksKubectlProviderframeworkonEvent47AB1AD9Arn"
+     ]
+    },
+    "ClusterName": {
+     "Ref": "KongMicroservicesCluster5B0ADCEE"
+    },
+    "RoleArn": {
+     "Fn::GetAtt": [
+      "KongMicroservicesClusterCreationRole76E0EC80",
+      "Arn"
+     ]
+    },
+    "Release": "aws-load-balancer-controller",
+    "Chart": "aws-load-balancer-controller",
+    "Values": {
+     "Fn::Join": [
+      "",
+      [
+       "{\"region\":\"ap-southeast-1\",\"serviceAccount\":{\"create\":false,\"name\":\"aws-load-balancer-controller\"},\"vpcId\":\"",
+       {
+        "Fn::ImportValue": "NetworkingStack:ExportsOutputRefKongMicroservicesVpc358D6F72698E6107"
+       },
+       "\",\"clusterName\":\"",
+       {
+        "Ref": "KongMicroservicesCluster5B0ADCEE"
+       },
+       "\"}"
+      ]
+     ]
+    },
+    "Namespace": "kube-system",
+    "Repository": "https://aws.github.io/eks-charts"
+   },
+   "DependsOn": [
+    "KongMicroservicesClusterAwsLoadBalancerControllerSAConditionJson17245BC1",
+    "KongMicroservicesClusterAwsLoadBalancerControllerSAmanifestAwsLoadBalancerControllerSAServiceAccountResourceEFE14E44",
+    "KongMicroservicesClusterAwsLoadBalancerControllerSARoleDefaultPolicyEEC4ED1F",
+    "KongMicroservicesClusterAwsLoadBalancerControllerSARole02E8133B",
+    "KongMicroservicesClusterKubectlReadyBarrier8F5639FB"
+   ],
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "EksStack/AwsLoadBalancerController/Resource/Default"
+   }
+  },
+  "CDKMetadata": {
+   "Type": "AWS::CDK::Metadata",
+   "Properties": {
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/1WQT2sCQQzFP4v3OPXPob2uA6W1LYpCrxJns5ru7IxMMi6y7HcvuhXs6fdeIOG9zMxs/mImI2xl7Mp67Hlvuq2iqwFb2XUem32JpvvEC6VvSsIxgK3Co+9B5jsUIRVTXAEyN4vsatIFCgHVYjrrsygleMV0QKV1ihV7gqKVIusRPvKeUiAl+cLAFYnCltKZHRXOxRwUVicK76WNIZDTdYpnLinBG/nGHjFpD4yN6TbR0zXfjevo2V2udlB9D7d8W8UDhwPYLBqbDUnMyQ1rd/04tDGUrH/FlzJw+NH/C/dUt9a2Cqusp6w9LPGMT9NnMzHT2ehHmMcpB+WGzGbgL3MzteGGAQAA"
+   },
+   "Metadata": {
+    "aws:cdk:path": "EksStack/CDKMetadata/Default"
+   }
+  }
+ },
+ "Conditions": {
+  "KongMicroservicesClusterHasEcrPublic31FBB993": {
+   "Fn::Equals": [
+    {
+     "Ref": "AWS::Partition"
+    },
+    "aws"
+   ]
+  }
+ },
+ "Outputs": {
+  "ClusterName": {
+   "Description": "EKS Cluster Name",
+   "Value": {
+    "Ref": "KongMicroservicesCluster5B0ADCEE"
+   }
+  },
+  "ClusterEndpoint": {
+   "Description": "EKS Cluster Endpoint",
+   "Value": {
+    "Fn::GetAtt": [
+     "KongMicroservicesCluster5B0ADCEE",
+     "Endpoint"
+    ]
+   }
+  },
+  "ExportsOutputFnGetAttawscdkawseksKubectlProviderNestedStackawscdkawseksKubectlProviderNestedStackResourceA7AEBA6BOutputsEksStackawscdkawseksKubectlProviderframeworkonEvent47AB1AD9ArnFF103C5B": {
+   "Value": {
+    "Fn::GetAtt": [
+     "awscdkawseksKubectlProviderNestedStackawscdkawseksKubectlProviderNestedStackResourceA7AEBA6B",
+     "Outputs.EksStackawscdkawseksKubectlProviderframeworkonEvent47AB1AD9Arn"
+    ]
+   },
+   "Export": {
+    "Name": "EksStack:ExportsOutputFnGetAttawscdkawseksKubectlProviderNestedStackawscdkawseksKubectlProviderNestedStackResourceA7AEBA6BOutputsEksStackawscdkawseksKubectlProviderframeworkonEvent47AB1AD9ArnFF103C5B"
+   }
+  },
+  "ExportsOutputRefKongMicroservicesCluster5B0ADCEE6F30146E": {
+   "Value": {
+    "Ref": "KongMicroservicesCluster5B0ADCEE"
+   },
+   "Export": {
+    "Name": "EksStack:ExportsOutputRefKongMicroservicesCluster5B0ADCEE6F30146E"
+   }
+  },
+  "ExportsOutputFnGetAttKongMicroservicesClusterCreationRole76E0EC80Arn1C5808C8": {
+   "Value": {
+    "Fn::GetAtt": [
+     "KongMicroservicesClusterCreationRole76E0EC80",
+     "Arn"
+    ]
+   },
+   "Export": {
+    "Name": "EksStack:ExportsOutputFnGetAttKongMicroservicesClusterCreationRole76E0EC80Arn1C5808C8"
+   }
+  }
+ },
+ "Parameters": {
+  "BootstrapVersion": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/cdk-bootstrap/hnb659fds/version",
+   "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
+  }
+ },
+ "Rules": {
+  "CheckBootstrapVersion": {
+   "Assertions": [
+    {
+     "Assert": {
+      "Fn::Not": [
+       {
+        "Fn::Contains": [
+         [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+         ],
+         {
+          "Ref": "BootstrapVersion"
+         }
+        ]
+       }
+      ]
+     },
+     "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI."
+    }
+   ]
+  }
+ }
+}

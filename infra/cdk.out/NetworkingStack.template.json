@@ -1,0 +1,758 @@
+{
+ "Description": "Kong API Gateway and Microservices Infrastructure",
+ "Resources": {
+  "KongMicroservicesVpc358D6F72": {
+   "Type": "AWS::EC2::VPC",
+   "Properties": {
+    "CidrBlock": "10.0.0.0/16",
+    "EnableDnsHostnames": true,
+    "EnableDnsSupport": true,
+    "InstanceTenancy": "default",
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "NetworkingStack/KongMicroservicesVpc"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "NetworkingStack/KongMicroservicesVpc/Resource"
+   }
+  },
+  "KongMicroservicesVpcPublicSubnet1Subnet80BC974D": {
+   "Type": "AWS::EC2::Subnet",
+   "Properties": {
+    "AvailabilityZone": {
+     "Fn::Select": [
+      0,
+      {
+       "Fn::GetAZs": ""
+      }
+     ]
+    },
+    "CidrBlock": "10.0.0.0/24",
+    "MapPublicIpOnLaunch": true,
+    "Tags": [
+     {
+      "Key": "aws-cdk:subnet-name",
+      "Value": "Public"
+     },
+     {
+      "Key": "aws-cdk:subnet-type",
+      "Value": "Public"
+     },
+     {
+      "Key": "kubernetes.io/role/elb",
+      "Value": "1"
+     },
+     {
+      "Key": "Name",
+      "Value": "NetworkingStack/KongMicroservicesVpc/PublicSubnet1"
+     }
+    ],
+    "VpcId": {
+     "Ref": "KongMicroservicesVpc358D6F72"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "NetworkingStack/KongMicroservicesVpc/PublicSubnet1/Subnet"
+   }
+  },
+  "KongMicroservicesVpcPublicSubnet1RouteTable18F6FC25": {
+   "Type": "AWS::EC2::RouteTable",
+   "Properties": {
+    "Tags": [
+     {
+      "Key": "kubernetes.io/role/elb",
+      "Value": "1"
+     },
+     {
+      "Key": "Name",
+      "Value": "NetworkingStack/KongMicroservicesVpc/PublicSubnet1"
+     }
+    ],
+    "VpcId": {
+     "Ref": "KongMicroservicesVpc358D6F72"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "NetworkingStack/KongMicroservicesVpc/PublicSubnet1/RouteTable"
+   }
+  },
+  "KongMicroservicesVpcPublicSubnet1RouteTableAssociationCF0E0BE4": {
+   "Type": "AWS::EC2::SubnetRouteTableAssociation",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "KongMicroservicesVpcPublicSubnet1RouteTable18F6FC25"
+    },
+    "SubnetId": {
+     "Ref": "KongMicroservicesVpcPublicSubnet1Subnet80BC974D"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "NetworkingStack/KongMicroservicesVpc/PublicSubnet1/RouteTableAssociation"
+   }
+  },
+  "KongMicroservicesVpcPublicSubnet1DefaultRoute9BFE6015": {
+   "Type": "AWS::EC2::Route",
+   "Properties": {
+    "DestinationCidrBlock": "0.0.0.0/0",
+    "GatewayId": {
+     "Ref": "KongMicroservicesVpcIGWFC02A1F1"
+    },
+    "RouteTableId": {
+     "Ref": "KongMicroservicesVpcPublicSubnet1RouteTable18F6FC25"
+    }
+   },
+   "DependsOn": [
+    "KongMicroservicesVpcVPCGW0A266556"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "NetworkingStack/KongMicroservicesVpc/PublicSubnet1/DefaultRoute"
+   }
+  },
+  "KongMicroservicesVpcPublicSubnet1EIP063C951B": {
+   "Type": "AWS::EC2::EIP",
+   "Properties": {
+    "Domain": "vpc",
+    "Tags": [
+     {
+      "Key": "kubernetes.io/role/elb",
+      "Value": "1"
+     },
+     {
+      "Key": "Name",
+      "Value": "NetworkingStack/KongMicroservicesVpc/PublicSubnet1"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "NetworkingStack/KongMicroservicesVpc/PublicSubnet1/EIP"
+   }
+  },
+  "KongMicroservicesVpcPublicSubnet1NATGatewayD343A650": {
+   "Type": "AWS::EC2::NatGateway",
+   "Properties": {
+    "AllocationId": {
+     "Fn::GetAtt": [
+      "KongMicroservicesVpcPublicSubnet1EIP063C951B",
+      "AllocationId"
+     ]
+    },
+    "SubnetId": {
+     "Ref": "KongMicroservicesVpcPublicSubnet1Subnet80BC974D"
+    },
+    "Tags": [
+     {
+      "Key": "kubernetes.io/role/elb",
+      "Value": "1"
+     },
+     {
+      "Key": "Name",
+      "Value": "NetworkingStack/KongMicroservicesVpc/PublicSubnet1"
+     }
+    ]
+   },
+   "DependsOn": [
+    "KongMicroservicesVpcPublicSubnet1DefaultRoute9BFE6015",
+    "KongMicroservicesVpcPublicSubnet1RouteTableAssociationCF0E0BE4"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "NetworkingStack/KongMicroservicesVpc/PublicSubnet1/NATGateway"
+   }
+  },
+  "KongMicroservicesVpcPublicSubnet2SubnetCEF4D8FC": {
+   "Type": "AWS::EC2::Subnet",
+   "Properties": {
+    "AvailabilityZone": {
+     "Fn::Select": [
+      1,
+      {
+       "Fn::GetAZs": ""
+      }
+     ]
+    },
+    "CidrBlock": "10.0.1.0/24",
+    "MapPublicIpOnLaunch": true,
+    "Tags": [
+     {
+      "Key": "aws-cdk:subnet-name",
+      "Value": "Public"
+     },
+     {
+      "Key": "aws-cdk:subnet-type",
+      "Value": "Public"
+     },
+     {
+      "Key": "kubernetes.io/role/elb",
+      "Value": "1"
+     },
+     {
+      "Key": "Name",
+      "Value": "NetworkingStack/KongMicroservicesVpc/PublicSubnet2"
+     }
+    ],
+    "VpcId": {
+     "Ref": "KongMicroservicesVpc358D6F72"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "NetworkingStack/KongMicroservicesVpc/PublicSubnet2/Subnet"
+   }
+  },
+  "KongMicroservicesVpcPublicSubnet2RouteTableF9E005F7": {
+   "Type": "AWS::EC2::RouteTable",
+   "Properties": {
+    "Tags": [
+     {
+      "Key": "kubernetes.io/role/elb",
+      "Value": "1"
+     },
+     {
+      "Key": "Name",
+      "Value": "NetworkingStack/KongMicroservicesVpc/PublicSubnet2"
+     }
+    ],
+    "VpcId": {
+     "Ref": "KongMicroservicesVpc358D6F72"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "NetworkingStack/KongMicroservicesVpc/PublicSubnet2/RouteTable"
+   }
+  },
+  "KongMicroservicesVpcPublicSubnet2RouteTableAssociation199C9B6C": {
+   "Type": "AWS::EC2::SubnetRouteTableAssociation",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "KongMicroservicesVpcPublicSubnet2RouteTableF9E005F7"
+    },
+    "SubnetId": {
+     "Ref": "KongMicroservicesVpcPublicSubnet2SubnetCEF4D8FC"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "NetworkingStack/KongMicroservicesVpc/PublicSubnet2/RouteTableAssociation"
+   }
+  },
+  "KongMicroservicesVpcPublicSubnet2DefaultRoute23835327": {
+   "Type": "AWS::EC2::Route",
+   "Properties": {
+    "DestinationCidrBlock": "0.0.0.0/0",
+    "GatewayId": {
+     "Ref": "KongMicroservicesVpcIGWFC02A1F1"
+    },
+    "RouteTableId": {
+     "Ref": "KongMicroservicesVpcPublicSubnet2RouteTableF9E005F7"
+    }
+   },
+   "DependsOn": [
+    "KongMicroservicesVpcVPCGW0A266556"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "NetworkingStack/KongMicroservicesVpc/PublicSubnet2/DefaultRoute"
+   }
+  },
+  "KongMicroservicesVpcPrivateSubnet1Subnet6EBE9ABE": {
+   "Type": "AWS::EC2::Subnet",
+   "Properties": {
+    "AvailabilityZone": {
+     "Fn::Select": [
+      0,
+      {
+       "Fn::GetAZs": ""
+      }
+     ]
+    },
+    "CidrBlock": "10.0.2.0/24",
+    "MapPublicIpOnLaunch": false,
+    "Tags": [
+     {
+      "Key": "aws-cdk:subnet-name",
+      "Value": "Private"
+     },
+     {
+      "Key": "aws-cdk:subnet-type",
+      "Value": "Private"
+     },
+     {
+      "Key": "kubernetes.io/role/internal-elb",
+      "Value": "1"
+     },
+     {
+      "Key": "Name",
+      "Value": "NetworkingStack/KongMicroservicesVpc/PrivateSubnet1"
+     }
+    ],
+    "VpcId": {
+     "Ref": "KongMicroservicesVpc358D6F72"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "NetworkingStack/KongMicroservicesVpc/PrivateSubnet1/Subnet"
+   }
+  },
+  "KongMicroservicesVpcPrivateSubnet1RouteTable6F928E57": {
+   "Type": "AWS::EC2::RouteTable",
+   "Properties": {
+    "Tags": [
+     {
+      "Key": "kubernetes.io/role/internal-elb",
+      "Value": "1"
+     },
+     {
+      "Key": "Name",
+      "Value": "NetworkingStack/KongMicroservicesVpc/PrivateSubnet1"
+     }
+    ],
+    "VpcId": {
+     "Ref": "KongMicroservicesVpc358D6F72"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "NetworkingStack/KongMicroservicesVpc/PrivateSubnet1/RouteTable"
+   }
+  },
+  "KongMicroservicesVpcPrivateSubnet1RouteTableAssociationF63497BB": {
+   "Type": "AWS::EC2::SubnetRouteTableAssociation",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "KongMicroservicesVpcPrivateSubnet1RouteTable6F928E57"
+    },
+    "SubnetId": {
+     "Ref": "KongMicroservicesVpcPrivateSubnet1Subnet6EBE9ABE"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "NetworkingStack/KongMicroservicesVpc/PrivateSubnet1/RouteTableAssociation"
+   }
+  },
+  "KongMicroservicesVpcPrivateSubnet1DefaultRouteA71B739F": {
+   "Type": "AWS::EC2::Route",
+   "Properties": {
+    "DestinationCidrBlock": "0.0.0.0/0",
+    "NatGatewayId": {
+     "Ref": "KongMicroservicesVpcPublicSubnet1NATGatewayD343A650"
+    },
+    "RouteTableId": {
+     "Ref": "KongMicroservicesVpcPrivateSubnet1RouteTable6F928E57"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "NetworkingStack/KongMicroservicesVpc/PrivateSubnet1/DefaultRoute"
+   }
+  },
+  "KongMicroservicesVpcPrivateSubnet2SubnetE1BAE109": {
+   "Type": "AWS::EC2::Subnet",
+   "Properties": {
+    "AvailabilityZone": {
+     "Fn::Select": [
+      1,
+      {
+       "Fn::GetAZs": ""
+      }
+     ]
+    },
+    "CidrBlock": "10.0.3.0/24",
+    "MapPublicIpOnLaunch": false,
+    "Tags": [
+     {
+      "Key": "aws-cdk:subnet-name",
+      "Value": "Private"
+     },
+     {
+      "Key": "aws-cdk:subnet-type",
+      "Value": "Private"
+     },
+     {
+      "Key": "kubernetes.io/role/internal-elb",
+      "Value": "1"
+     },
+     {
+      "Key": "Name",
+      "Value": "NetworkingStack/KongMicroservicesVpc/PrivateSubnet2"
+     }
+    ],
+    "VpcId": {
+     "Ref": "KongMicroservicesVpc358D6F72"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "NetworkingStack/KongMicroservicesVpc/PrivateSubnet2/Subnet"
+   }
+  },
+  "KongMicroservicesVpcPrivateSubnet2RouteTable0AB0FD13": {
+   "Type": "AWS::EC2::RouteTable",
+   "Properties": {
+    "Tags": [
+     {
+      "Key": "kubernetes.io/role/internal-elb",
+      "Value": "1"
+     },
+     {
+      "Key": "Name",
+      "Value": "NetworkingStack/KongMicroservicesVpc/PrivateSubnet2"
+     }
+    ],
+    "VpcId": {
+     "Ref": "KongMicroservicesVpc358D6F72"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "NetworkingStack/KongMicroservicesVpc/PrivateSubnet2/RouteTable"
+   }
+  },
+  "KongMicroservicesVpcPrivateSubnet2RouteTableAssociation91540CC0": {
+   "Type": "AWS::EC2::SubnetRouteTableAssociation",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "KongMicroservicesVpcPrivateSubnet2RouteTable0AB0FD13"
+    },
+    "SubnetId": {
+     "Ref": "KongMicroservicesVpcPrivateSubnet2SubnetE1BAE109"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "NetworkingStack/KongMicroservicesVpc/PrivateSubnet2/RouteTableAssociation"
+   }
+  },
+  "KongMicroservicesVpcPrivateSubnet2DefaultRouteBD43FDED": {
+   "Type": "AWS::EC2::Route",
+   "Properties": {
+    "DestinationCidrBlock": "0.0.0.0/0",
+    "NatGatewayId": {
+     "Ref": "KongMicroservicesVpcPublicSubnet1NATGatewayD343A650"
+    },
+    "RouteTableId": {
+     "Ref": "KongMicroservicesVpcPrivateSubnet2RouteTable0AB0FD13"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "NetworkingStack/KongMicroservicesVpc/PrivateSubnet2/DefaultRoute"
+   }
+  },
+  "KongMicroservicesVpcIsolatedSubnet1SubnetD16E060D": {
+   "Type": "AWS::EC2::Subnet",
+   "Properties": {
+    "AvailabilityZone": {
+     "Fn::Select": [
+      0,
+      {
+       "Fn::GetAZs": ""
+      }
+     ]
+    },
+    "CidrBlock": "10.0.4.0/24",
+    "MapPublicIpOnLaunch": false,
+    "Tags": [
+     {
+      "Key": "aws-cdk:subnet-name",
+      "Value": "Isolated"
+     },
+     {
+      "Key": "aws-cdk:subnet-type",
+      "Value": "Isolated"
+     },
+     {
+      "Key": "Name",
+      "Value": "NetworkingStack/KongMicroservicesVpc/IsolatedSubnet1"
+     }
+    ],
+    "VpcId": {
+     "Ref": "KongMicroservicesVpc358D6F72"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "NetworkingStack/KongMicroservicesVpc/IsolatedSubnet1/Subnet"
+   }
+  },
+  "KongMicroservicesVpcIsolatedSubnet1RouteTable7361108B": {
+   "Type": "AWS::EC2::RouteTable",
+   "Properties": {
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "NetworkingStack/KongMicroservicesVpc/IsolatedSubnet1"
+     }
+    ],
+    "VpcId": {
+     "Ref": "KongMicroservicesVpc358D6F72"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "NetworkingStack/KongMicroservicesVpc/IsolatedSubnet1/RouteTable"
+   }
+  },
+  "KongMicroservicesVpcIsolatedSubnet1RouteTableAssociation387B82B7": {
+   "Type": "AWS::EC2::SubnetRouteTableAssociation",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "KongMicroservicesVpcIsolatedSubnet1RouteTable7361108B"
+    },
+    "SubnetId": {
+     "Ref": "KongMicroservicesVpcIsolatedSubnet1SubnetD16E060D"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "NetworkingStack/KongMicroservicesVpc/IsolatedSubnet1/RouteTableAssociation"
+   }
+  },
+  "KongMicroservicesVpcIsolatedSubnet2Subnet77ED7997": {
+   "Type": "AWS::EC2::Subnet",
+   "Properties": {
+    "AvailabilityZone": {
+     "Fn::Select": [
+      1,
+      {
+       "Fn::GetAZs": ""
+      }
+     ]
+    },
+    "CidrBlock": "10.0.5.0/24",
+    "MapPublicIpOnLaunch": false,
+    "Tags": [
+     {
+      "Key": "aws-cdk:subnet-name",
+      "Value": "Isolated"
+     },
+     {
+      "Key": "aws-cdk:subnet-type",
+      "Value": "Isolated"
+     },
+     {
+      "Key": "Name",
+      "Value": "NetworkingStack/KongMicroservicesVpc/IsolatedSubnet2"
+     }
+    ],
+    "VpcId": {
+     "Ref": "KongMicroservicesVpc358D6F72"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "NetworkingStack/KongMicroservicesVpc/IsolatedSubnet2/Subnet"
+   }
+  },
+  "KongMicroservicesVpcIsolatedSubnet2RouteTableF413FCE8": {
+   "Type": "AWS::EC2::RouteTable",
+   "Properties": {
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "NetworkingStack/KongMicroservicesVpc/IsolatedSubnet2"
+     }
+    ],
+    "VpcId": {
+     "Ref": "KongMicroservicesVpc358D6F72"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "NetworkingStack/KongMicroservicesVpc/IsolatedSubnet2/RouteTable"
+   }
+  },
+  "KongMicroservicesVpcIsolatedSubnet2RouteTableAssociation2EF8667D": {
+   "Type": "AWS::EC2::SubnetRouteTableAssociation",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "KongMicroservicesVpcIsolatedSubnet2RouteTableF413FCE8"
+    },
+    "SubnetId": {
+     "Ref": "KongMicroservicesVpcIsolatedSubnet2Subnet77ED7997"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "NetworkingStack/KongMicroservicesVpc/IsolatedSubnet2/RouteTableAssociation"
+   }
+  },
+  "KongMicroservicesVpcIGWFC02A1F1": {
+   "Type": "AWS::EC2::InternetGateway",
+   "Properties": {
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "NetworkingStack/KongMicroservicesVpc"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "NetworkingStack/KongMicroservicesVpc/IGW"
+   }
+  },
+  "KongMicroservicesVpcVPCGW0A266556": {
+   "Type": "AWS::EC2::VPCGatewayAttachment",
+   "Properties": {
+    "InternetGatewayId": {
+     "Ref": "KongMicroservicesVpcIGWFC02A1F1"
+    },
+    "VpcId": {
+     "Ref": "KongMicroservicesVpc358D6F72"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "NetworkingStack/KongMicroservicesVpc/VPCGW"
+   }
+  },
+  "EksSecurityGroup1CEAF9CC": {
+   "Type": "AWS::EC2::SecurityGroup",
+   "Properties": {
+    "GroupDescription": "Security group for EKS cluster",
+    "SecurityGroupEgress": [
+     {
+      "CidrIp": "0.0.0.0/0",
+      "Description": "Allow all outbound traffic by default",
+      "IpProtocol": "-1"
+     }
+    ],
+    "SecurityGroupIngress": [
+     {
+      "CidrIp": "0.0.0.0/0",
+      "Description": "Allow HTTPS from anywhere",
+      "FromPort": 443,
+      "IpProtocol": "tcp",
+      "ToPort": 443
+     },
+     {
+      "CidrIp": "0.0.0.0/0",
+      "Description": "Allow HTTP from anywhere",
+      "FromPort": 80,
+      "IpProtocol": "tcp",
+      "ToPort": 80
+     }
+    ],
+    "VpcId": {
+     "Ref": "KongMicroservicesVpc358D6F72"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "NetworkingStack/EksSecurityGroup/Resource"
+   }
+  },
+  "DatabaseSecurityGroup7319C0F6": {
+   "Type": "AWS::EC2::SecurityGroup",
+   "Properties": {
+    "GroupDescription": "Security group for databases",
+    "SecurityGroupEgress": [
+     {
+      "CidrIp": "0.0.0.0/0",
+      "Description": "Allow all outbound traffic by default",
+      "IpProtocol": "-1"
+     }
+    ],
+    "SecurityGroupIngress": [
+     {
+      "Description": "Allow PostgreSQL from EKS",
+      "FromPort": 5432,
+      "IpProtocol": "tcp",
+      "SourceSecurityGroupId": {
+       "Fn::GetAtt": [
+        "EksSecurityGroup1CEAF9CC",
+        "GroupId"
+       ]
+      },
+      "ToPort": 5432
+     }
+    ],
+    "VpcId": {
+     "Ref": "KongMicroservicesVpc358D6F72"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "NetworkingStack/DatabaseSecurityGroup/Resource"
+   }
+  },
+  "CDKMetadata": {
+   "Type": "AWS::CDK::Metadata",
+   "Properties": {
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/02OQQ/BQBCFf4v7dlEHriIiHGhacZXpGDHUbrM7oxHx36WIOr03X17evNSmo4kd9KCJCR4uScWlfRQCeDHQxD1hah+7Gs3s6HbZzGRaVoyFlo6kZZ3LvQptoayo4x2bxuiRQdi7X7g182XWyhpkAUIN3E0W+AZCXfHSCQVHv8BnyfeaigCeruTEFIQaWO6L4LV+b/gHT5NT9Brw/XajUqs8zQpu0B+O7cAO0945MidBnfCVbP7RF3liTRofAQAA"
+   },
+   "Metadata": {
+    "aws:cdk:path": "NetworkingStack/CDKMetadata/Default"
+   }
+  }
+ },
+ "Outputs": {
+  "VpcId": {
+   "Description": "VPC ID",
+   "Value": {
+    "Ref": "KongMicroservicesVpc358D6F72"
+   }
+  },
+  "EksSecurityGroupId": {
+   "Description": "EKS Security Group ID",
+   "Value": {
+    "Fn::GetAtt": [
+     "EksSecurityGroup1CEAF9CC",
+     "GroupId"
+    ]
+   }
+  },
+  "ExportsOutputRefKongMicroservicesVpcPrivateSubnet1Subnet6EBE9ABE61C959C0": {
+   "Value": {
+    "Ref": "KongMicroservicesVpcPrivateSubnet1Subnet6EBE9ABE"
+   },
+   "Export": {
+    "Name": "NetworkingStack:ExportsOutputRefKongMicroservicesVpcPrivateSubnet1Subnet6EBE9ABE61C959C0"
+   }
+  },
+  "ExportsOutputRefKongMicroservicesVpcPrivateSubnet2SubnetE1BAE109B3EC36B8": {
+   "Value": {
+    "Ref": "KongMicroservicesVpcPrivateSubnet2SubnetE1BAE109"
+   },
+   "Export": {
+    "Name": "NetworkingStack:ExportsOutputRefKongMicroservicesVpcPrivateSubnet2SubnetE1BAE109B3EC36B8"
+   }
+  },
+  "ExportsOutputFnGetAttEksSecurityGroup1CEAF9CCGroupId30966257": {
+   "Value": {
+    "Fn::GetAtt": [
+     "EksSecurityGroup1CEAF9CC",
+     "GroupId"
+    ]
+   },
+   "Export": {
+    "Name": "NetworkingStack:ExportsOutputFnGetAttEksSecurityGroup1CEAF9CCGroupId30966257"
+   }
+  },
+  "ExportsOutputRefKongMicroservicesVpc358D6F72698E6107": {
+   "Value": {
+    "Ref": "KongMicroservicesVpc358D6F72"
+   },
+   "Export": {
+    "Name": "NetworkingStack:ExportsOutputRefKongMicroservicesVpc358D6F72698E6107"
+   }
+  }
+ },
+ "Parameters": {
+  "BootstrapVersion": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/cdk-bootstrap/hnb659fds/version",
+   "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
+  }
+ },
+ "Rules": {
+  "CheckBootstrapVersion": {
+   "Assertions": [
+    {
+     "Assert": {
+      "Fn::Not": [
+       {
+        "Fn::Contains": [
+         [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+         ],
+         {
+          "Ref": "BootstrapVersion"
+         }
+        ]
+       }
+      ]
+     },
+     "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI."
+    }
+   ]
+  }
+ }
+}

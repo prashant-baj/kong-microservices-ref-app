@@ -1,0 +1,21 @@
+{
+  "version": "48.0.0",
+  "files": {
+    "1521bd6aabcd84c378a71f890aed82fdbd2c46ac063317ca80ba1a12f6199a45": {
+      "displayName": "KongStack Template",
+      "source": {
+        "path": "KongStack.template.json",
+        "packaging": "file"
+      },
+      "destinations": {
+        "current_account-ap-southeast-1-d7a42690": {
+          "bucketName": "cdk-hnb659fds-assets-${AWS::AccountId}-ap-southeast-1",
+          "objectKey": "1521bd6aabcd84c378a71f890aed82fdbd2c46ac063317ca80ba1a12f6199a45.json",
+          "region": "ap-southeast-1",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-file-publishing-role-${AWS::AccountId}-ap-southeast-1"
+        }
+      }
+    }
+  },
+  "dockerImages": {}
+}

@@ -1,0 +1,87 @@
+{
+ "Description": "Kong API Gateway and Microservices Infrastructure",
+ "Resources": {
+  "KongHelmChartF674EEBB": {
+   "Type": "Custom::AWSCDK-EKS-HelmChart",
+   "Properties": {
+    "ServiceToken": {
+     "Fn::ImportValue": "EksStack:ExportsOutputFnGetAttawscdkawseksKubectlProviderNestedStackawscdkawseksKubectlProviderNestedStackResourceA7AEBA6BOutputsEksStackawscdkawseksKubectlProviderframeworkonEvent47AB1AD9ArnFF103C5B"
+    },
+    "ClusterName": {
+     "Fn::ImportValue": "EksStack:ExportsOutputRefKongMicroservicesCluster5B0ADCEE6F30146E"
+    },
+    "RoleArn": {
+     "Fn::ImportValue": "EksStack:ExportsOutputFnGetAttKongMicroservicesClusterCreationRole76E0EC80Arn1C5808C8"
+    },
+    "Release": "kong",
+    "Chart": "kong",
+    "Values": "{\"kong\":{\"env\":{\"database\":\"off\",\"log_level\":\"info\",\"proxy_listen\":\"0.0.0.0:8000\",\"admin_listen\":\"0.0.0.0:8001\"}},\"proxy\":{\"type\":\"LoadBalancer\",\"http\":{\"enabled\":true,\"servicePort\":80,\"containerPort\":8000},\"tls\":{\"enabled\":false}},\"admin\":{\"enabled\":true,\"type\":\"ClusterIP\",\"http\":{\"enabled\":true,\"servicePort\":8001,\"containerPort\":8001}},\"ingressController\":{\"enabled\":true},\"replicaCount\":2,\"resources\":{\"requests\":{\"memory\":\"256Mi\",\"cpu\":\"250m\"},\"limits\":{\"memory\":\"512Mi\",\"cpu\":\"500m\"}}}",
+    "Namespace": "kong",
+    "Repository": "https://charts.konghq.com",
+    "CreateNamespace": true
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "KongStack/KongHelmChart/Resource/Default"
+   }
+  },
+  "CDKMetadata": {
+   "Type": "AWS::CDK::Metadata",
+   "Properties": {
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/zPSMzK20DNQTCwv1k1OydbNyUzSqw4uSUzO1kksL45PzS7W80jNyXXOSCwq0XEuLS7Jzw1KLc4vLUpO1XFOy0Nm+5eWFJSW1Op4JZYl6hua6xnoGRopZhVnZuoWleaVZOam6gVBaAANTxK5dAAAAA=="
+   },
+   "Metadata": {
+    "aws:cdk:path": "KongStack/CDKMetadata/Default"
+   }
+  }
+ },
+ "Outputs": {
+  "KongNamespace": {
+   "Description": "Kong Namespace",
+   "Value": "kong"
+  },
+  "KongProxyService": {
+   "Description": "Kong Proxy Service",
+   "Value": "kong-kong-proxy (LoadBalancer)"
+  },
+  "KongAdminService": {
+   "Description": "Kong Admin API Service",
+   "Value": "kong-kong-admin (ClusterIP)"
+  }
+ },
+ "Parameters": {
+  "BootstrapVersion": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/cdk-bootstrap/hnb659fds/version",
+   "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
+  }
+ },
+ "Rules": {
+  "CheckBootstrapVersion": {
+   "Assertions": [
+    {
+     "Assert": {
+      "Fn::Not": [
+       {
+        "Fn::Contains": [
+         [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+         ],
+         {
+          "Ref": "BootstrapVersion"
+         }
+        ]
+       }
+      ]
+     },
+     "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI."
+    }
+   ]
+  }
+ }
+}

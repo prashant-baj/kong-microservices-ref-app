@@ -1,0 +1,21 @@
+{
+  "version": "48.0.0",
+  "files": {
+    "aca72fd9094a452716494cfffe83ef3afeaa0e078cbe3b76783e6a730a9f40e6": {
+      "displayName": "MicroservicesStack Template",
+      "source": {
+        "path": "MicroservicesStack.template.json",
+        "packaging": "file"
+      },
+      "destinations": {
+        "current_account-ap-southeast-1-06b7902c": {
+          "bucketName": "cdk-hnb659fds-assets-${AWS::AccountId}-ap-southeast-1",
+          "objectKey": "aca72fd9094a452716494cfffe83ef3afeaa0e078cbe3b76783e6a730a9f40e6.json",
+          "region": "ap-southeast-1",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-file-publishing-role-${AWS::AccountId}-ap-southeast-1"
+        }
+      }
+    }
+  },
+  "dockerImages": {}
+}

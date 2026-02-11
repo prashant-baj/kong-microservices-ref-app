@@ -1,0 +1,1669 @@
+{
+  "version": "48.0.0",
+  "artifacts": {
+    "NetworkingStack.assets": {
+      "type": "cdk:asset-manifest",
+      "properties": {
+        "file": "NetworkingStack.assets.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+      }
+    },
+    "NetworkingStack": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://unknown-account/ap-southeast-1",
+      "properties": {
+        "templateFile": "NetworkingStack.template.json",
+        "terminationProtection": false,
+        "validateOnSynth": false,
+        "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-ap-southeast-1",
+        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-ap-southeast-1",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-ap-southeast-1/0b86faaf4b9d4bb73ba08da2e77a7146a45f94b464d2910813e11aa8a9240049.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
+        "additionalDependencies": [
+          "NetworkingStack.assets"
+        ],
+        "lookupRole": {
+          "arn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-lookup-role-${AWS::AccountId}-ap-southeast-1",
+          "requiresBootstrapStackVersion": 8,
+          "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+        }
+      },
+      "dependencies": [
+        "NetworkingStack.assets"
+      ],
+      "metadata": {
+        "/NetworkingStack/KongMicroservicesVpc/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "KongMicroservicesVpc358D6F72"
+          }
+        ],
+        "/NetworkingStack/KongMicroservicesVpc/PublicSubnet1/Subnet": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "KongMicroservicesVpcPublicSubnet1Subnet80BC974D"
+          }
+        ],
+        "/NetworkingStack/KongMicroservicesVpc/PublicSubnet1/RouteTable": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "KongMicroservicesVpcPublicSubnet1RouteTable18F6FC25"
+          }
+        ],
+        "/NetworkingStack/KongMicroservicesVpc/PublicSubnet1/RouteTableAssociation": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "KongMicroservicesVpcPublicSubnet1RouteTableAssociationCF0E0BE4"
+          }
+        ],
+        "/NetworkingStack/KongMicroservicesVpc/PublicSubnet1/DefaultRoute": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "KongMicroservicesVpcPublicSubnet1DefaultRoute9BFE6015"
+          }
+        ],
+        "/NetworkingStack/KongMicroservicesVpc/PublicSubnet1/EIP": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "KongMicroservicesVpcPublicSubnet1EIP063C951B"
+          }
+        ],
+        "/NetworkingStack/KongMicroservicesVpc/PublicSubnet1/NATGateway": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "KongMicroservicesVpcPublicSubnet1NATGatewayD343A650"
+          }
+        ],
+        "/NetworkingStack/KongMicroservicesVpc/PublicSubnet2/Subnet": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "KongMicroservicesVpcPublicSubnet2SubnetCEF4D8FC"
+          }
+        ],
+        "/NetworkingStack/KongMicroservicesVpc/PublicSubnet2/RouteTable": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "KongMicroservicesVpcPublicSubnet2RouteTableF9E005F7"
+          }
+        ],
+        "/NetworkingStack/KongMicroservicesVpc/PublicSubnet2/RouteTableAssociation": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "KongMicroservicesVpcPublicSubnet2RouteTableAssociation199C9B6C"
+          }
+        ],
+        "/NetworkingStack/KongMicroservicesVpc/PublicSubnet2/DefaultRoute": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "KongMicroservicesVpcPublicSubnet2DefaultRoute23835327"
+          }
+        ],
+        "/NetworkingStack/KongMicroservicesVpc/PrivateSubnet1/Subnet": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "KongMicroservicesVpcPrivateSubnet1Subnet6EBE9ABE"
+          }
+        ],
+        "/NetworkingStack/KongMicroservicesVpc/PrivateSubnet1/RouteTable": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "KongMicroservicesVpcPrivateSubnet1RouteTable6F928E57"
+          }
+        ],
+        "/NetworkingStack/KongMicroservicesVpc/PrivateSubnet1/RouteTableAssociation": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "KongMicroservicesVpcPrivateSubnet1RouteTableAssociationF63497BB"
+          }
+        ],
+        "/NetworkingStack/KongMicroservicesVpc/PrivateSubnet1/DefaultRoute": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "KongMicroservicesVpcPrivateSubnet1DefaultRouteA71B739F"
+          }
+        ],
+        "/NetworkingStack/KongMicroservicesVpc/PrivateSubnet2/Subnet": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "KongMicroservicesVpcPrivateSubnet2SubnetE1BAE109"
+          }
+        ],
+        "/NetworkingStack/KongMicroservicesVpc/PrivateSubnet2/RouteTable": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "KongMicroservicesVpcPrivateSubnet2RouteTable0AB0FD13"
+          }
+        ],
+        "/NetworkingStack/KongMicroservicesVpc/PrivateSubnet2/RouteTableAssociation": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "KongMicroservicesVpcPrivateSubnet2RouteTableAssociation91540CC0"
+          }
+        ],
+        "/NetworkingStack/KongMicroservicesVpc/PrivateSubnet2/DefaultRoute": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "KongMicroservicesVpcPrivateSubnet2DefaultRouteBD43FDED"
+          }
+        ],
+        "/NetworkingStack/KongMicroservicesVpc/IsolatedSubnet1/Subnet": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "KongMicroservicesVpcIsolatedSubnet1SubnetD16E060D"
+          }
+        ],
+        "/NetworkingStack/KongMicroservicesVpc/IsolatedSubnet1/RouteTable": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "KongMicroservicesVpcIsolatedSubnet1RouteTable7361108B"
+          }
+        ],
+        "/NetworkingStack/KongMicroservicesVpc/IsolatedSubnet1/RouteTableAssociation": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "KongMicroservicesVpcIsolatedSubnet1RouteTableAssociation387B82B7"
+          }
+        ],
+        "/NetworkingStack/KongMicroservicesVpc/IsolatedSubnet2/Subnet": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "KongMicroservicesVpcIsolatedSubnet2Subnet77ED7997"
+          }
+        ],
+        "/NetworkingStack/KongMicroservicesVpc/IsolatedSubnet2/RouteTable": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "KongMicroservicesVpcIsolatedSubnet2RouteTableF413FCE8"
+          }
+        ],
+        "/NetworkingStack/KongMicroservicesVpc/IsolatedSubnet2/RouteTableAssociation": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "KongMicroservicesVpcIsolatedSubnet2RouteTableAssociation2EF8667D"
+          }
+        ],
+        "/NetworkingStack/KongMicroservicesVpc/IGW": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "KongMicroservicesVpcIGWFC02A1F1"
+          }
+        ],
+        "/NetworkingStack/KongMicroservicesVpc/VPCGW": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "KongMicroservicesVpcVPCGW0A266556"
+          }
+        ],
+        "/NetworkingStack/EksSecurityGroup/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "EksSecurityGroup1CEAF9CC"
+          }
+        ],
+        "/NetworkingStack/DatabaseSecurityGroup/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "DatabaseSecurityGroup7319C0F6"
+          }
+        ],
+        "/NetworkingStack/VpcId": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "VpcId"
+          }
+        ],
+        "/NetworkingStack/EksSecurityGroupId": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "EksSecurityGroupId"
+          }
+        ],
+        "/NetworkingStack/CDKMetadata/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadata"
+          }
+        ],
+        "/NetworkingStack/Exports/Output{\"Ref\":\"KongMicroservicesVpcPrivateSubnet1Subnet6EBE9ABE\"}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ExportsOutputRefKongMicroservicesVpcPrivateSubnet1Subnet6EBE9ABE61C959C0"
+          }
+        ],
+        "/NetworkingStack/Exports/Output{\"Ref\":\"KongMicroservicesVpcPrivateSubnet2SubnetE1BAE109\"}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ExportsOutputRefKongMicroservicesVpcPrivateSubnet2SubnetE1BAE109B3EC36B8"
+          }
+        ],
+        "/NetworkingStack/Exports/Output{\"Fn::GetAtt\":[\"EksSecurityGroup1CEAF9CC\",\"GroupId\"]}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ExportsOutputFnGetAttEksSecurityGroup1CEAF9CCGroupId30966257"
+          }
+        ],
+        "/NetworkingStack/Exports/Output{\"Ref\":\"KongMicroservicesVpc358D6F72\"}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ExportsOutputRefKongMicroservicesVpc358D6F72698E6107"
+          }
+        ],
+        "/NetworkingStack/BootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BootstrapVersion"
+          }
+        ],
+        "/NetworkingStack/CheckBootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CheckBootstrapVersion"
+          }
+        ]
+      },
+      "displayName": "NetworkingStack"
+    },
+    "EcrStack.assets": {
+      "type": "cdk:asset-manifest",
+      "properties": {
+        "file": "EcrStack.assets.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+      }
+    },
+    "EcrStack": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://unknown-account/ap-southeast-1",
+      "properties": {
+        "templateFile": "EcrStack.template.json",
+        "terminationProtection": false,
+        "validateOnSynth": false,
+        "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-ap-southeast-1",
+        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-ap-southeast-1",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-ap-southeast-1/d2c83281287d2ff23eb8701015334c5459d9218b9a0390c3d5eecdbb41886b04.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
+        "additionalDependencies": [
+          "EcrStack.assets"
+        ],
+        "lookupRole": {
+          "arn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-lookup-role-${AWS::AccountId}-ap-southeast-1",
+          "requiresBootstrapStackVersion": 8,
+          "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+        }
+      },
+      "dependencies": [
+        "EcrStack.assets"
+      ],
+      "metadata": {
+        "/EcrStack/ProductServiceRepository/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ProductServiceRepository7B8211CB"
+          }
+        ],
+        "/EcrStack/OrderServiceRepository/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "OrderServiceRepository86684BF7"
+          }
+        ],
+        "/EcrStack/InventoryServiceRepository/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "InventoryServiceRepository136F3D19"
+          }
+        ],
+        "/EcrStack/ProductServiceRepositoryUri": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ProductServiceRepositoryUri"
+          }
+        ],
+        "/EcrStack/OrderServiceRepositoryUri": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "OrderServiceRepositoryUri"
+          }
+        ],
+        "/EcrStack/InventoryServiceRepositoryUri": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "InventoryServiceRepositoryUri"
+          }
+        ],
+        "/EcrStack/EcrPushCommand": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "EcrPushCommand"
+          }
+        ],
+        "/EcrStack/CDKMetadata/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadata"
+          }
+        ],
+        "/EcrStack/Exports/Output{\"Fn::GetAtt\":[\"ProductServiceRepository7B8211CB\",\"Arn\"]}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ExportsOutputFnGetAttProductServiceRepository7B8211CBArn1E4B043D"
+          }
+        ],
+        "/EcrStack/Exports/Output{\"Ref\":\"ProductServiceRepository7B8211CB\"}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ExportsOutputRefProductServiceRepository7B8211CB74D021B1"
+          }
+        ],
+        "/EcrStack/Exports/Output{\"Fn::GetAtt\":[\"InventoryServiceRepository136F3D19\",\"Arn\"]}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ExportsOutputFnGetAttInventoryServiceRepository136F3D19Arn96F96D27"
+          }
+        ],
+        "/EcrStack/Exports/Output{\"Ref\":\"InventoryServiceRepository136F3D19\"}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ExportsOutputRefInventoryServiceRepository136F3D193426C416"
+          }
+        ],
+        "/EcrStack/Exports/Output{\"Fn::GetAtt\":[\"OrderServiceRepository86684BF7\",\"Arn\"]}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ExportsOutputFnGetAttOrderServiceRepository86684BF7Arn04558D10"
+          }
+        ],
+        "/EcrStack/Exports/Output{\"Ref\":\"OrderServiceRepository86684BF7\"}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ExportsOutputRefOrderServiceRepository86684BF7C148017B"
+          }
+        ],
+        "/EcrStack/BootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BootstrapVersion"
+          }
+        ],
+        "/EcrStack/CheckBootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CheckBootstrapVersion"
+          }
+        ]
+      },
+      "displayName": "EcrStack"
+    },
+    "EksStack.assets": {
+      "type": "cdk:asset-manifest",
+      "properties": {
+        "file": "EksStack.assets.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+      }
+    },
+    "EksStack": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://unknown-account/ap-southeast-1",
+      "properties": {
+        "templateFile": "EksStack.template.json",
+        "terminationProtection": false,
+        "validateOnSynth": false,
+        "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-ap-southeast-1",
+        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-ap-southeast-1",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-ap-southeast-1/c6aea30d17a8448fe6276fc7ad89297492677ed025d371c6c266c0a65979dedf.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
+        "additionalDependencies": [
+          "EksStack.assets"
+        ],
+        "lookupRole": {
+          "arn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-lookup-role-${AWS::AccountId}-ap-southeast-1",
+          "requiresBootstrapStackVersion": 8,
+          "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+        }
+      },
+      "dependencies": [
+        "NetworkingStack",
+        "EcrStack",
+        "EksStack.assets"
+      ],
+      "metadata": {
+        "/EksStack/KubectlLayer/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "KubectlLayer600207B5"
+          }
+        ],
+        "/EksStack/KongMicroservicesCluster/KubectlHandlerRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "KongMicroservicesClusterKubectlHandlerRole3006A08A"
+          }
+        ],
+        "/EksStack/KongMicroservicesCluster/KubectlHandlerRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "KongMicroservicesClusterKubectlHandlerRoleDefaultPolicyF65B049A"
+          }
+        ],
+        "/EksStack/KongMicroservicesCluster/Role/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "KongMicroservicesClusterRole82C409ED"
+          }
+        ],
+        "/EksStack/KongMicroservicesCluster/Resource/CreationRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "KongMicroservicesClusterCreationRole76E0EC80"
+          }
+        ],
+        "/EksStack/KongMicroservicesCluster/Resource/CreationRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "KongMicroservicesClusterCreationRoleDefaultPolicy5D0A673C"
+          }
+        ],
+        "/EksStack/KongMicroservicesCluster/Resource/Resource/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "KongMicroservicesCluster5B0ADCEE"
+          }
+        ],
+        "/EksStack/KongMicroservicesCluster/KubectlReadyBarrier": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "KongMicroservicesClusterKubectlReadyBarrier8F5639FB"
+          }
+        ],
+        "/EksStack/KongMicroservicesCluster/HasEcrPublic": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "KongMicroservicesClusterHasEcrPublic31FBB993"
+          }
+        ],
+        "/EksStack/KongMicroservicesCluster/fargate-profile-KongFargateProfile": [
+          {
+            "type": "aws:cdk:warning",
+            "data": "Vpc must be defined to use a custom subnet selection. All private subnets belonging to the EKS cluster will be used by default [ack: @aws-cdk/aws-eks:fargateProfileDefaultToPrivateSubnets]",
+            "trace": [
+              "Annotations.addMessage (C:\\Temp\\jsii-kernel-nThY2c\\node_modules\\aws-cdk-lib\\core\\lib\\annotations.js:1:2066)",
+              "Annotations.addWarningV2 (C:\\Temp\\jsii-kernel-nThY2c\\node_modules\\aws-cdk-lib\\core\\lib\\annotations.js:1:984)",
+              "new FargateProfile (C:\\Temp\\jsii-kernel-nThY2c\\node_modules\\aws-cdk-lib\\aws-eks\\lib\\fargate-profile.js:1:1829)",
+              "WrappedClass.addFargateProfile (C:\\Temp\\jsii-kernel-nThY2c\\node_modules\\aws-cdk-lib\\aws-eks\\lib\\cluster.js:1:29959)",
+              "WrappedClass.<anonymous> (C:\\Temp\\jsii-kernel-nThY2c\\node_modules\\aws-cdk-lib\\core\\lib\\metadata-resource.js:1:2015)",
+              "C:\\Temp\\jsii-java-runtime4848810737419840349\\lib\\program.js:295:171",
+              "Kernel._Kernel_ensureSync (C:\\Temp\\jsii-java-runtime4848810737419840349\\lib\\program.js:918:24)",
+              "Kernel.invoke (C:\\Temp\\jsii-java-runtime4848810737419840349\\lib\\program.js:295:102)",
+              "KernelHost.processRequest (C:\\Temp\\jsii-java-runtime4848810737419840349\\lib\\program.js:15484:36)",
+              "KernelHost.run (C:\\Temp\\jsii-java-runtime4848810737419840349\\lib\\program.js:15444:22)",
+              "Immediate._onImmediate (C:\\Temp\\jsii-java-runtime4848810737419840349\\lib\\program.js:15445:45)",
+              "process.processImmediate (node:internal/timers:485:21)"
+            ]
+          }
+        ],
+        "/EksStack/KongMicroservicesCluster/fargate-profile-KongFargateProfile/PodExecutionRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "KongMicroservicesClusterfargateprofileKongFargateProfilePodExecutionRoleE7275387"
+          }
+        ],
+        "/EksStack/KongMicroservicesCluster/fargate-profile-KongFargateProfile/Resource/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "KongMicroservicesClusterfargateprofileKongFargateProfileADE45E09"
+          }
+        ],
+        "/EksStack/KongMicroservicesCluster/AwsAuth/manifest/Resource/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "KongMicroservicesClusterAwsAuthmanifestA4647386"
+          }
+        ],
+        "/EksStack/KongMicroservicesCluster/fargate-profile-MicroservicesFargateProfile": [
+          {
+            "type": "aws:cdk:warning",
+            "data": "Vpc must be defined to use a custom subnet selection. All private subnets belonging to the EKS cluster will be used by default [ack: @aws-cdk/aws-eks:fargateProfileDefaultToPrivateSubnets]",
+            "trace": [
+              "Annotations.addMessage (C:\\Temp\\jsii-kernel-nThY2c\\node_modules\\aws-cdk-lib\\core\\lib\\annotations.js:1:2066)",
+              "Annotations.addWarningV2 (C:\\Temp\\jsii-kernel-nThY2c\\node_modules\\aws-cdk-lib\\core\\lib\\annotations.js:1:984)",
+              "new FargateProfile (C:\\Temp\\jsii-kernel-nThY2c\\node_modules\\aws-cdk-lib\\aws-eks\\lib\\fargate-profile.js:1:1829)",
+              "WrappedClass.addFargateProfile (C:\\Temp\\jsii-kernel-nThY2c\\node_modules\\aws-cdk-lib\\aws-eks\\lib\\cluster.js:1:29959)",
+              "WrappedClass.<anonymous> (C:\\Temp\\jsii-kernel-nThY2c\\node_modules\\aws-cdk-lib\\core\\lib\\metadata-resource.js:1:2015)",
+              "C:\\Temp\\jsii-java-runtime4848810737419840349\\lib\\program.js:295:171",
+              "Kernel._Kernel_ensureSync (C:\\Temp\\jsii-java-runtime4848810737419840349\\lib\\program.js:918:24)",
+              "Kernel.invoke (C:\\Temp\\jsii-java-runtime4848810737419840349\\lib\\program.js:295:102)",
+              "KernelHost.processRequest (C:\\Temp\\jsii-java-runtime4848810737419840349\\lib\\program.js:15484:36)",
+              "KernelHost.run (C:\\Temp\\jsii-java-runtime4848810737419840349\\lib\\program.js:15444:22)",
+              "Immediate._onImmediate (C:\\Temp\\jsii-java-runtime4848810737419840349\\lib\\program.js:15445:45)",
+              "process.processImmediate (node:internal/timers:485:21)"
+            ]
+          }
+        ],
+        "/EksStack/KongMicroservicesCluster/fargate-profile-MicroservicesFargateProfile/PodExecutionRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "KongMicroservicesClusterfargateprofileMicroservicesFargateProfilePodExecutionRoleF4FF7328"
+          }
+        ],
+        "/EksStack/KongMicroservicesCluster/fargate-profile-MicroservicesFargateProfile/Resource/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "KongMicroservicesClusterfargateprofileMicroservicesFargateProfile1BE48BBE"
+          }
+        ],
+        "/EksStack/KongMicroservicesCluster/fargate-profile-DatabasesFargateProfile": [
+          {
+            "type": "aws:cdk:warning",
+            "data": "Vpc must be defined to use a custom subnet selection. All private subnets belonging to the EKS cluster will be used by default [ack: @aws-cdk/aws-eks:fargateProfileDefaultToPrivateSubnets]",
+            "trace": [
+              "Annotations.addMessage (C:\\Temp\\jsii-kernel-nThY2c\\node_modules\\aws-cdk-lib\\core\\lib\\annotations.js:1:2066)",
+              "Annotations.addWarningV2 (C:\\Temp\\jsii-kernel-nThY2c\\node_modules\\aws-cdk-lib\\core\\lib\\annotations.js:1:984)",
+              "new FargateProfile (C:\\Temp\\jsii-kernel-nThY2c\\node_modules\\aws-cdk-lib\\aws-eks\\lib\\fargate-profile.js:1:1829)",
+              "WrappedClass.addFargateProfile (C:\\Temp\\jsii-kernel-nThY2c\\node_modules\\aws-cdk-lib\\aws-eks\\lib\\cluster.js:1:29959)",
+              "WrappedClass.<anonymous> (C:\\Temp\\jsii-kernel-nThY2c\\node_modules\\aws-cdk-lib\\core\\lib\\metadata-resource.js:1:2015)",
+              "C:\\Temp\\jsii-java-runtime4848810737419840349\\lib\\program.js:295:171",
+              "Kernel._Kernel_ensureSync (C:\\Temp\\jsii-java-runtime4848810737419840349\\lib\\program.js:918:24)",
+              "Kernel.invoke (C:\\Temp\\jsii-java-runtime4848810737419840349\\lib\\program.js:295:102)",
+              "KernelHost.processRequest (C:\\Temp\\jsii-java-runtime4848810737419840349\\lib\\program.js:15484:36)",
+              "KernelHost.run (C:\\Temp\\jsii-java-runtime4848810737419840349\\lib\\program.js:15444:22)",
+              "Immediate._onImmediate (C:\\Temp\\jsii-java-runtime4848810737419840349\\lib\\program.js:15445:45)",
+              "process.processImmediate (node:internal/timers:485:21)"
+            ]
+          }
+        ],
+        "/EksStack/KongMicroservicesCluster/fargate-profile-DatabasesFargateProfile/PodExecutionRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "KongMicroservicesClusterfargateprofileDatabasesFargateProfilePodExecutionRoleF1EC94E1"
+          }
+        ],
+        "/EksStack/KongMicroservicesCluster/fargate-profile-DatabasesFargateProfile/Resource/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "KongMicroservicesClusterfargateprofileDatabasesFargateProfile0622B23D"
+          }
+        ],
+        "/EksStack/KongMicroservicesCluster/fargate-profile-CoreSystemFargateProfile": [
+          {
+            "type": "aws:cdk:warning",
+            "data": "Vpc must be defined to use a custom subnet selection. All private subnets belonging to the EKS cluster will be used by default [ack: @aws-cdk/aws-eks:fargateProfileDefaultToPrivateSubnets]",
+            "trace": [
+              "Annotations.addMessage (C:\\Temp\\jsii-kernel-nThY2c\\node_modules\\aws-cdk-lib\\core\\lib\\annotations.js:1:2066)",
+              "Annotations.addWarningV2 (C:\\Temp\\jsii-kernel-nThY2c\\node_modules\\aws-cdk-lib\\core\\lib\\annotations.js:1:984)",
+              "new FargateProfile (C:\\Temp\\jsii-kernel-nThY2c\\node_modules\\aws-cdk-lib\\aws-eks\\lib\\fargate-profile.js:1:1829)",
+              "WrappedClass.addFargateProfile (C:\\Temp\\jsii-kernel-nThY2c\\node_modules\\aws-cdk-lib\\aws-eks\\lib\\cluster.js:1:29959)",
+              "WrappedClass.<anonymous> (C:\\Temp\\jsii-kernel-nThY2c\\node_modules\\aws-cdk-lib\\core\\lib\\metadata-resource.js:1:2015)",
+              "C:\\Temp\\jsii-java-runtime4848810737419840349\\lib\\program.js:295:171",
+              "Kernel._Kernel_ensureSync (C:\\Temp\\jsii-java-runtime4848810737419840349\\lib\\program.js:918:24)",
+              "Kernel.invoke (C:\\Temp\\jsii-java-runtime4848810737419840349\\lib\\program.js:295:102)",
+              "KernelHost.processRequest (C:\\Temp\\jsii-java-runtime4848810737419840349\\lib\\program.js:15484:36)",
+              "KernelHost.run (C:\\Temp\\jsii-java-runtime4848810737419840349\\lib\\program.js:15444:22)",
+              "Immediate._onImmediate (C:\\Temp\\jsii-java-runtime4848810737419840349\\lib\\program.js:15445:45)",
+              "process.processImmediate (node:internal/timers:485:21)"
+            ]
+          }
+        ],
+        "/EksStack/KongMicroservicesCluster/fargate-profile-CoreSystemFargateProfile/PodExecutionRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "KongMicroservicesClusterfargateprofileCoreSystemFargateProfilePodExecutionRole2D0E4CB3"
+          }
+        ],
+        "/EksStack/KongMicroservicesCluster/fargate-profile-CoreSystemFargateProfile/Resource/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "KongMicroservicesClusterfargateprofileCoreSystemFargateProfile352C69D2"
+          }
+        ],
+        "/EksStack/KongMicroservicesCluster/AwsLoadBalancerControllerSA/ConditionJson/Resource/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "KongMicroservicesClusterAwsLoadBalancerControllerSAConditionJson17245BC1"
+          }
+        ],
+        "/EksStack/KongMicroservicesCluster/AwsLoadBalancerControllerSA/Role/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "KongMicroservicesClusterAwsLoadBalancerControllerSARole02E8133B"
+          }
+        ],
+        "/EksStack/KongMicroservicesCluster/AwsLoadBalancerControllerSA/Role/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "KongMicroservicesClusterAwsLoadBalancerControllerSARoleDefaultPolicyEEC4ED1F"
+          }
+        ],
+        "/EksStack/KongMicroservicesCluster/AwsLoadBalancerControllerSA/manifest-AwsLoadBalancerControllerSAServiceAccountResource/Resource/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "KongMicroservicesClusterAwsLoadBalancerControllerSAmanifestAwsLoadBalancerControllerSAServiceAccountResourceEFE14E44"
+          }
+        ],
+        "/EksStack/KongMicroservicesCluster/OpenIdConnectProvider/Resource/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "KongMicroservicesClusterOpenIdConnectProvider12D3A116"
+          }
+        ],
+        "/EksStack/KongMicroservicesCluster/manifest-DatabaseNamespace/Resource/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "KongMicroservicesClustermanifestDatabaseNamespace208DF68B"
+          }
+        ],
+        "/EksStack/KongMicroservicesCluster/manifest-PostgresStatefulSet/Resource/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "KongMicroservicesClustermanifestPostgresStatefulSet6148703A"
+          }
+        ],
+        "/EksStack/KongMicroservicesCluster/manifest-PostgresService/Resource/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "KongMicroservicesClustermanifestPostgresService73D206A7"
+          }
+        ],
+        "/EksStack/KongMicroservicesCluster/manifest-PostgresInitScript/Resource/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "KongMicroservicesClustermanifestPostgresInitScript0809BD98"
+          }
+        ],
+        "/EksStack/KongMicroservicesCluster/manifest-MicroservicesNamespace/Resource/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "KongMicroservicesClustermanifestMicroservicesNamespaceBEB5BC0E"
+          }
+        ],
+        "/EksStack/KongMicroservicesCluster/manifest-product-service-Deployment/Resource/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "KongMicroservicesClustermanifestproductserviceDeploymentF6B0241B"
+          }
+        ],
+        "/EksStack/KongMicroservicesCluster/manifest-product-service-Service/Resource/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "KongMicroservicesClustermanifestproductserviceService257E6A4E"
+          }
+        ],
+        "/EksStack/KongMicroservicesCluster/manifest-product-service-Ingress/Resource/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "KongMicroservicesClustermanifestproductserviceIngressA8D65FE5"
+          }
+        ],
+        "/EksStack/KongMicroservicesCluster/manifest-inventory-service-Deployment/Resource/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "KongMicroservicesClustermanifestinventoryserviceDeployment1B780AFF"
+          }
+        ],
+        "/EksStack/KongMicroservicesCluster/manifest-inventory-service-Service/Resource/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "KongMicroservicesClustermanifestinventoryserviceServiceB62A1794"
+          }
+        ],
+        "/EksStack/KongMicroservicesCluster/manifest-inventory-service-Ingress/Resource/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "KongMicroservicesClustermanifestinventoryserviceIngress20A988D1"
+          }
+        ],
+        "/EksStack/KongMicroservicesCluster/manifest-order-service-Deployment/Resource/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "KongMicroservicesClustermanifestorderserviceDeployment85D4FB8F"
+          }
+        ],
+        "/EksStack/KongMicroservicesCluster/manifest-order-service-Service/Resource/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "KongMicroservicesClustermanifestorderserviceServiceBBF705F5"
+          }
+        ],
+        "/EksStack/KongMicroservicesCluster/manifest-order-service-Ingress/Resource/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "KongMicroservicesClustermanifestorderserviceIngress96BE62E0"
+          }
+        ],
+        "/EksStack/@aws-cdk--aws-eks.ClusterResourceProvider/NodeProxyAgentLayer/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "NodeProxyAgentLayer924C1971"
+          }
+        ],
+        "/EksStack/@aws-cdk--aws-eks.ClusterResourceProvider/OnEventHandler": [
+          {
+            "type": "aws:cdk:is-custom-resource-handler-runtime-family",
+            "data": 0
+          }
+        ],
+        "/EksStack/@aws-cdk--aws-eks.ClusterResourceProvider/OnEventHandler/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "OnEventHandlerServiceRole15A26729"
+          }
+        ],
+        "/EksStack/@aws-cdk--aws-eks.ClusterResourceProvider/OnEventHandler/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "OnEventHandler42BEBAE0"
+          }
+        ],
+        "/EksStack/@aws-cdk--aws-eks.ClusterResourceProvider/IsCompleteHandler": [
+          {
+            "type": "aws:cdk:is-custom-resource-handler-runtime-family",
+            "data": 0
+          }
+        ],
+        "/EksStack/@aws-cdk--aws-eks.ClusterResourceProvider/IsCompleteHandler/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "IsCompleteHandlerServiceRole5810CC58"
+          }
+        ],
+        "/EksStack/@aws-cdk--aws-eks.ClusterResourceProvider/IsCompleteHandler/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "IsCompleteHandler7073F4DA"
+          }
+        ],
+        "/EksStack/@aws-cdk--aws-eks.ClusterResourceProvider/Provider/framework-onEvent/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ProviderframeworkonEventServiceRole9FF04296"
+          }
+        ],
+        "/EksStack/@aws-cdk--aws-eks.ClusterResourceProvider/Provider/framework-onEvent/ServiceRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ProviderframeworkonEventServiceRoleDefaultPolicy48CD2133"
+          }
+        ],
+        "/EksStack/@aws-cdk--aws-eks.ClusterResourceProvider/Provider/framework-onEvent/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ProviderframeworkonEvent83C1D0A7"
+          }
+        ],
+        "/EksStack/@aws-cdk--aws-eks.ClusterResourceProvider/Provider/framework-isComplete/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ProviderframeworkisCompleteServiceRoleB1087139"
+          }
+        ],
+        "/EksStack/@aws-cdk--aws-eks.ClusterResourceProvider/Provider/framework-isComplete/ServiceRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ProviderframeworkisCompleteServiceRoleDefaultPolicy2E7140AC"
+          }
+        ],
+        "/EksStack/@aws-cdk--aws-eks.ClusterResourceProvider/Provider/framework-isComplete/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ProviderframeworkisComplete26D7B0CB"
+          }
+        ],
+        "/EksStack/@aws-cdk--aws-eks.ClusterResourceProvider/Provider/framework-onTimeout/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ProviderframeworkonTimeoutServiceRole28643D26"
+          }
+        ],
+        "/EksStack/@aws-cdk--aws-eks.ClusterResourceProvider/Provider/framework-onTimeout/ServiceRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ProviderframeworkonTimeoutServiceRoleDefaultPolicy2688969F"
+          }
+        ],
+        "/EksStack/@aws-cdk--aws-eks.ClusterResourceProvider/Provider/framework-onTimeout/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ProviderframeworkonTimeout0B47CA38"
+          }
+        ],
+        "/EksStack/@aws-cdk--aws-eks.ClusterResourceProvider/Provider/waiter-state-machine/Role/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ProviderwaiterstatemachineRole0C7159F9"
+          }
+        ],
+        "/EksStack/@aws-cdk--aws-eks.ClusterResourceProvider/Provider/waiter-state-machine/Role/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ProviderwaiterstatemachineRoleDefaultPolicyD3C3DA1A"
+          }
+        ],
+        "/EksStack/@aws-cdk--aws-eks.ClusterResourceProvider/Provider/waiter-state-machine/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "Providerwaiterstatemachine5D4A9DF0"
+          }
+        ],
+        "/EksStack/@aws-cdk--aws-eks.ClusterResourceProvider/CDKMetadata/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadata"
+          }
+        ],
+        "/EksStack/@aws-cdk--aws-eks.ClusterResourceProvider/EksStackawscdkawseksClusterResourceProviderOnEventHandlerServiceRole1469AC1FArn": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "EksStackawscdkawseksClusterResourceProviderOnEventHandlerServiceRole1469AC1FArn"
+          }
+        ],
+        "/EksStack/@aws-cdk--aws-eks.ClusterResourceProvider/EksStackawscdkawseksClusterResourceProviderIsCompleteHandlerServiceRole616EE428Arn": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "EksStackawscdkawseksClusterResourceProviderIsCompleteHandlerServiceRole616EE428Arn"
+          }
+        ],
+        "/EksStack/@aws-cdk--aws-eks.ClusterResourceProvider/EksStackawscdkawseksClusterResourceProviderframeworkonEvent7CA25C3FArn": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "EksStackawscdkawseksClusterResourceProviderframeworkonEvent7CA25C3FArn"
+          }
+        ],
+        "/EksStack/@aws-cdk--aws-eks.ClusterResourceProvider.NestedStack/@aws-cdk--aws-eks.ClusterResourceProvider.NestedStackResource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "awscdkawseksClusterResourceProviderNestedStackawscdkawseksClusterResourceProviderNestedStackResource9827C454"
+          }
+        ],
+        "/EksStack/@aws-cdk--aws-eks.KubectlProvider/Handler": [
+          {
+            "type": "aws:cdk:is-custom-resource-handler-runtime-family",
+            "data": 2
+          }
+        ],
+        "/EksStack/@aws-cdk--aws-eks.KubectlProvider/Handler/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "Handler886CB40B"
+          }
+        ],
+        "/EksStack/@aws-cdk--aws-eks.KubectlProvider/AwsCliLayer/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AwsCliLayerF44AAF94"
+          }
+        ],
+        "/EksStack/@aws-cdk--aws-eks.KubectlProvider/Provider/framework-onEvent/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ProviderframeworkonEventServiceRole9FF04296"
+          }
+        ],
+        "/EksStack/@aws-cdk--aws-eks.KubectlProvider/Provider/framework-onEvent/ServiceRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ProviderframeworkonEventServiceRoleDefaultPolicy48CD2133"
+          }
+        ],
+        "/EksStack/@aws-cdk--aws-eks.KubectlProvider/Provider/framework-onEvent/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ProviderframeworkonEvent83C1D0A7"
+          }
+        ],
+        "/EksStack/@aws-cdk--aws-eks.KubectlProvider/CDKMetadata/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadata"
+          }
+        ],
+        "/EksStack/@aws-cdk--aws-eks.KubectlProvider/EksStackawscdkawseksKubectlProviderframeworkonEvent47AB1AD9Arn": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "EksStackawscdkawseksKubectlProviderframeworkonEvent47AB1AD9Arn"
+          }
+        ],
+        "/EksStack/@aws-cdk--aws-eks.KubectlProvider/reference-to-EksStackKubectlLayer83CC151FRef": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "referencetoEksStackKubectlLayer83CC151FRef"
+          }
+        ],
+        "/EksStack/@aws-cdk--aws-eks.KubectlProvider/reference-to-EksStackKongMicroservicesClusterKubectlHandlerRole55EFD592Arn": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "referencetoEksStackKongMicroservicesClusterKubectlHandlerRole55EFD592Arn"
+          }
+        ],
+        "/EksStack/@aws-cdk--aws-eks.KubectlProvider/reference-to-EksStackKongMicroservicesClusterB6701A6CClusterSecurityGroupId": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "referencetoEksStackKongMicroservicesClusterB6701A6CClusterSecurityGroupId"
+          }
+        ],
+        "/EksStack/@aws-cdk--aws-eks.KubectlProvider.NestedStack/@aws-cdk--aws-eks.KubectlProvider.NestedStackResource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "awscdkawseksKubectlProviderNestedStackawscdkawseksKubectlProviderNestedStackResourceA7AEBA6B"
+          }
+        ],
+        "/EksStack/Custom::AWSCDKOpenIdConnectProviderCustomResourceProvider": [
+          {
+            "type": "aws:cdk:is-custom-resource-handler-customResourceProvider",
+            "data": true
+          }
+        ],
+        "/EksStack/Custom::AWSCDKOpenIdConnectProviderCustomResourceProvider/Role": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CustomAWSCDKOpenIdConnectProviderCustomResourceProviderRole517FED65"
+          }
+        ],
+        "/EksStack/Custom::AWSCDKOpenIdConnectProviderCustomResourceProvider/Handler": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CustomAWSCDKOpenIdConnectProviderCustomResourceProviderHandlerF2C543E0"
+          }
+        ],
+        "/EksStack/AWSCDKCfnUtilsProviderCustomResourceProvider": [
+          {
+            "type": "aws:cdk:is-custom-resource-handler-customResourceProvider",
+            "data": true
+          }
+        ],
+        "/EksStack/AWSCDKCfnUtilsProviderCustomResourceProvider/Role": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AWSCDKCfnUtilsProviderCustomResourceProviderRoleFE0EE867"
+          }
+        ],
+        "/EksStack/AWSCDKCfnUtilsProviderCustomResourceProvider/Handler": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AWSCDKCfnUtilsProviderCustomResourceProviderHandlerCF82AA57"
+          }
+        ],
+        "/EksStack/AwsLoadBalancerController/Resource/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AwsLoadBalancerController05861808"
+          }
+        ],
+        "/EksStack/ClusterName": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClusterName"
+          }
+        ],
+        "/EksStack/ClusterEndpoint": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClusterEndpoint"
+          }
+        ],
+        "/EksStack/CDKMetadata/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadata"
+          }
+        ],
+        "/EksStack/Exports/Output{\"Fn::GetAtt\":[\"awscdkawseksKubectlProviderNestedStackawscdkawseksKubectlProviderNestedStackResourceA7AEBA6B\",\"Outputs.EksStackawscdkawseksKubectlProviderframeworkonEvent47AB1AD9Arn\"]}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ExportsOutputFnGetAttawscdkawseksKubectlProviderNestedStackawscdkawseksKubectlProviderNestedStackResourceA7AEBA6BOutputsEksStackawscdkawseksKubectlProviderframeworkonEvent47AB1AD9ArnFF103C5B"
+          }
+        ],
+        "/EksStack/Exports/Output{\"Ref\":\"KongMicroservicesCluster5B0ADCEE\"}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ExportsOutputRefKongMicroservicesCluster5B0ADCEE6F30146E"
+          }
+        ],
+        "/EksStack/Exports/Output{\"Fn::GetAtt\":[\"KongMicroservicesClusterCreationRole76E0EC80\",\"Arn\"]}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ExportsOutputFnGetAttKongMicroservicesClusterCreationRole76E0EC80Arn1C5808C8"
+          }
+        ],
+        "/EksStack/BootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BootstrapVersion"
+          }
+        ],
+        "/EksStack/CheckBootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CheckBootstrapVersion"
+          }
+        ]
+      },
+      "displayName": "EksStack"
+    },
+    "DatabaseStack.assets": {
+      "type": "cdk:asset-manifest",
+      "properties": {
+        "file": "DatabaseStack.assets.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+      }
+    },
+    "DatabaseStack": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://unknown-account/ap-southeast-1",
+      "properties": {
+        "templateFile": "DatabaseStack.template.json",
+        "terminationProtection": false,
+        "validateOnSynth": false,
+        "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-ap-southeast-1",
+        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-ap-southeast-1",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-ap-southeast-1/5abc3c2a16d9e64f50fa7a58bb7cf2f4fb56aefe0b8583ff11c7471564ee2206.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
+        "additionalDependencies": [
+          "DatabaseStack.assets"
+        ],
+        "lookupRole": {
+          "arn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-lookup-role-${AWS::AccountId}-ap-southeast-1",
+          "requiresBootstrapStackVersion": 8,
+          "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+        }
+      },
+      "dependencies": [
+        "EksStack",
+        "DatabaseStack.assets"
+      ],
+      "metadata": {
+        "/DatabaseStack/PostgresDatabaseEndpoint": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PostgresDatabaseEndpoint"
+          }
+        ],
+        "/DatabaseStack/CDKMetadata/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadata"
+          }
+        ],
+        "/DatabaseStack/BootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BootstrapVersion"
+          }
+        ],
+        "/DatabaseStack/CheckBootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CheckBootstrapVersion"
+          }
+        ]
+      },
+      "displayName": "DatabaseStack"
+    },
+    "KongStack.assets": {
+      "type": "cdk:asset-manifest",
+      "properties": {
+        "file": "KongStack.assets.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+      }
+    },
+    "KongStack": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://unknown-account/ap-southeast-1",
+      "properties": {
+        "templateFile": "KongStack.template.json",
+        "terminationProtection": false,
+        "validateOnSynth": false,
+        "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-ap-southeast-1",
+        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-ap-southeast-1",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-ap-southeast-1/1521bd6aabcd84c378a71f890aed82fdbd2c46ac063317ca80ba1a12f6199a45.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
+        "additionalDependencies": [
+          "KongStack.assets"
+        ],
+        "lookupRole": {
+          "arn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-lookup-role-${AWS::AccountId}-ap-southeast-1",
+          "requiresBootstrapStackVersion": 8,
+          "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+        }
+      },
+      "dependencies": [
+        "EksStack",
+        "KongStack.assets"
+      ],
+      "metadata": {
+        "/KongStack/KongHelmChart/Resource/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "KongHelmChartF674EEBB"
+          }
+        ],
+        "/KongStack/KongNamespace": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "KongNamespace"
+          }
+        ],
+        "/KongStack/KongProxyService": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "KongProxyService"
+          }
+        ],
+        "/KongStack/KongAdminService": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "KongAdminService"
+          }
+        ],
+        "/KongStack/CDKMetadata/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadata"
+          }
+        ],
+        "/KongStack/BootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BootstrapVersion"
+          }
+        ],
+        "/KongStack/CheckBootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CheckBootstrapVersion"
+          }
+        ]
+      },
+      "displayName": "KongStack"
+    },
+    "MicroservicesStack.assets": {
+      "type": "cdk:asset-manifest",
+      "properties": {
+        "file": "MicroservicesStack.assets.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+      }
+    },
+    "MicroservicesStack": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://unknown-account/ap-southeast-1",
+      "properties": {
+        "templateFile": "MicroservicesStack.template.json",
+        "terminationProtection": false,
+        "validateOnSynth": false,
+        "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-ap-southeast-1",
+        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-ap-southeast-1",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-ap-southeast-1/aca72fd9094a452716494cfffe83ef3afeaa0e078cbe3b76783e6a730a9f40e6.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
+        "additionalDependencies": [
+          "MicroservicesStack.assets"
+        ],
+        "lookupRole": {
+          "arn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-lookup-role-${AWS::AccountId}-ap-southeast-1",
+          "requiresBootstrapStackVersion": 8,
+          "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+        }
+      },
+      "dependencies": [
+        "EksStack",
+        "DatabaseStack",
+        "MicroservicesStack.assets"
+      ],
+      "metadata": {
+        "/MicroservicesStack/CDKMetadata/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadata"
+          }
+        ],
+        "/MicroservicesStack/BootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BootstrapVersion"
+          }
+        ],
+        "/MicroservicesStack/CheckBootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CheckBootstrapVersion"
+          }
+        ]
+      },
+      "displayName": "MicroservicesStack"
+    },
+    "Tree": {
+      "type": "cdk:tree",
+      "properties": {
+        "file": "tree.json"
+      }
+    },
+    "aws-cdk-lib/feature-flag-report": {
+      "type": "cdk:feature-flag-report",
+      "properties": {
+        "module": "aws-cdk-lib",
+        "flags": {
+          "@aws-cdk/aws-signer:signingProfileNamePassedToCfn": {
+            "recommendedValue": true,
+            "explanation": "Pass signingProfileName to CfnSigningProfile"
+          },
+          "@aws-cdk/core:newStyleStackSynthesis": {
+            "recommendedValue": true,
+            "explanation": "Switch to new stack synthesis method which enables CI/CD",
+            "unconfiguredBehavesLike": {
+              "v2": true
+            }
+          },
+          "@aws-cdk/core:stackRelativeExports": {
+            "recommendedValue": true,
+            "explanation": "Name exports based on the construct paths relative to the stack, rather than the global construct path",
+            "unconfiguredBehavesLike": {
+              "v2": true
+            }
+          },
+          "@aws-cdk/aws-ecs-patterns:secGroupsDisablesImplicitOpenListener": {
+            "recommendedValue": true,
+            "explanation": "Disable implicit openListener when custom security groups are provided"
+          },
+          "@aws-cdk/aws-rds:lowercaseDbIdentifier": {
+            "recommendedValue": true,
+            "explanation": "Force lowercasing of RDS Cluster names in CDK",
+            "unconfiguredBehavesLike": {
+              "v2": true
+            }
+          },
+          "@aws-cdk/aws-apigateway:usagePlanKeyOrderInsensitiveId": {
+            "recommendedValue": true,
+            "explanation": "Allow adding/removing multiple UsagePlanKeys independently",
+            "unconfiguredBehavesLike": {
+              "v2": true
+            }
+          },
+          "@aws-cdk/aws-lambda:recognizeVersionProps": {
+            "recommendedValue": true,
+            "explanation": "Enable this feature flag to opt in to the updated logical id calculation for Lambda Version created using the  `fn.currentVersion`.",
+            "unconfiguredBehavesLike": {
+              "v2": true
+            }
+          },
+          "@aws-cdk/aws-lambda:recognizeLayerVersion": {
+            "recommendedValue": true,
+            "explanation": "Enable this feature flag to opt in to the updated logical id calculation for Lambda Version created using the `fn.currentVersion`."
+          },
+          "@aws-cdk/aws-cloudfront:defaultSecurityPolicyTLSv1.2_2021": {
+            "recommendedValue": true,
+            "explanation": "Enable this feature flag to have cloudfront distributions use the security policy TLSv1.2_2021 by default.",
+            "unconfiguredBehavesLike": {
+              "v2": true
+            }
+          },
+          "@aws-cdk/core:checkSecretUsage": {
+            "recommendedValue": true,
+            "explanation": "Enable this flag to make it impossible to accidentally use SecretValues in unsafe locations"
+          },
+          "@aws-cdk/core:target-partitions": {
+            "recommendedValue": [
+              "aws",
+              "aws-cn"
+            ],
+            "explanation": "What regions to include in lookup tables of environment agnostic stacks"
+          },
+          "@aws-cdk-containers/ecs-service-extensions:enableDefaultLogDriver": {
+            "recommendedValue": true,
+            "explanation": "ECS extensions will automatically add an `awslogs` driver if no logging is specified"
+          },
+          "@aws-cdk/aws-ec2:uniqueImdsv2TemplateName": {
+            "recommendedValue": true,
+            "explanation": "Enable this feature flag to have Launch Templates generated by the `InstanceRequireImdsv2Aspect` use unique names."
+          },
+          "@aws-cdk/aws-ecs:arnFormatIncludesClusterName": {
+            "recommendedValue": true,
+            "explanation": "ARN format used by ECS. In the new ARN format, the cluster name is part of the resource ID."
+          },
+          "@aws-cdk/aws-iam:minimizePolicies": {
+            "recommendedValue": true,
+            "explanation": "Minimize IAM policies by combining Statements"
+          },
+          "@aws-cdk/core:validateSnapshotRemovalPolicy": {
+            "recommendedValue": true,
+            "explanation": "Error on snapshot removal policies on resources that do not support it."
+          },
+          "@aws-cdk/aws-codepipeline:crossAccountKeyAliasStackSafeResourceName": {
+            "recommendedValue": true,
+            "explanation": "Generate key aliases that include the stack name"
+          },
+          "@aws-cdk/aws-s3:createDefaultLoggingPolicy": {
+            "recommendedValue": true,
+            "explanation": "Enable this feature flag to create an S3 bucket policy by default in cases where an AWS service would automatically create the Policy if one does not exist."
+          },
+          "@aws-cdk/aws-sns-subscriptions:restrictSqsDescryption": {
+            "recommendedValue": true,
+            "explanation": "Restrict KMS key policy for encrypted Queues a bit more"
+          },
+          "@aws-cdk/aws-apigateway:disableCloudWatchRole": {
+            "recommendedValue": true,
+            "explanation": "Make default CloudWatch Role behavior safe for multiple API Gateways in one environment"
+          },
+          "@aws-cdk/core:enablePartitionLiterals": {
+            "recommendedValue": true,
+            "explanation": "Make ARNs concrete if AWS partition is known"
+          },
+          "@aws-cdk/aws-events:eventsTargetQueueSameAccount": {
+            "recommendedValue": true,
+            "explanation": "Event Rules may only push to encrypted SQS queues in the same account"
+          },
+          "@aws-cdk/aws-ecs:disableExplicitDeploymentControllerForCircuitBreaker": {
+            "recommendedValue": true,
+            "explanation": "Avoid setting the \"ECS\" deployment controller when adding a circuit breaker"
+          },
+          "@aws-cdk/aws-iam:importedRoleStackSafeDefaultPolicyName": {
+            "recommendedValue": true,
+            "explanation": "Enable this feature to create default policy names for imported roles that depend on the stack the role is in."
+          },
+          "@aws-cdk/aws-s3:serverAccessLogsUseBucketPolicy": {
+            "recommendedValue": true,
+            "explanation": "Use S3 Bucket Policy instead of ACLs for Server Access Logging"
+          },
+          "@aws-cdk/aws-route53-patters:useCertificate": {
+            "recommendedValue": true,
+            "explanation": "Use the official `Certificate` resource instead of `DnsValidatedCertificate`"
+          },
+          "@aws-cdk/customresources:installLatestAwsSdkDefault": {
+            "recommendedValue": false,
+            "explanation": "Whether to install the latest SDK by default in AwsCustomResource"
+          },
+          "@aws-cdk/aws-rds:databaseProxyUniqueResourceName": {
+            "recommendedValue": true,
+            "explanation": "Use unique resource name for Database Proxy"
+          },
+          "@aws-cdk/aws-codedeploy:removeAlarmsFromDeploymentGroup": {
+            "recommendedValue": true,
+            "explanation": "Remove CloudWatch alarms from deployment group"
+          },
+          "@aws-cdk/aws-apigateway:authorizerChangeDeploymentLogicalId": {
+            "recommendedValue": true,
+            "explanation": "Include authorizer configuration in the calculation of the API deployment logical ID."
+          },
+          "@aws-cdk/aws-ec2:launchTemplateDefaultUserData": {
+            "recommendedValue": true,
+            "explanation": "Define user data for a launch template by default when a machine image is provided."
+          },
+          "@aws-cdk/aws-secretsmanager:useAttachedSecretResourcePolicyForSecretTargetAttachments": {
+            "recommendedValue": true,
+            "explanation": "SecretTargetAttachments uses the ResourcePolicy of the attached Secret."
+          },
+          "@aws-cdk/aws-redshift:columnId": {
+            "recommendedValue": true,
+            "explanation": "Whether to use an ID to track Redshift column changes"
+          },
+          "@aws-cdk/aws-stepfunctions-tasks:enableEmrServicePolicyV2": {
+            "recommendedValue": true,
+            "explanation": "Enable AmazonEMRServicePolicy_v2 managed policies"
+          },
+          "@aws-cdk/aws-ec2:restrictDefaultSecurityGroup": {
+            "recommendedValue": true,
+            "explanation": "Restrict access to the VPC default security group"
+          },
+          "@aws-cdk/aws-apigateway:requestValidatorUniqueId": {
+            "recommendedValue": true,
+            "explanation": "Generate a unique id for each RequestValidator added to a method"
+          },
+          "@aws-cdk/aws-kms:aliasNameRef": {
+            "recommendedValue": true,
+            "explanation": "KMS Alias name and keyArn will have implicit reference to KMS Key"
+          },
+          "@aws-cdk/aws-kms:applyImportedAliasPermissionsToPrincipal": {
+            "recommendedValue": true,
+            "explanation": "Enable grant methods on Aliases imported by name to use kms:ResourceAliases condition"
+          },
+          "@aws-cdk/aws-autoscaling:generateLaunchTemplateInsteadOfLaunchConfig": {
+            "recommendedValue": true,
+            "explanation": "Generate a launch template when creating an AutoScalingGroup"
+          },
+          "@aws-cdk/core:includePrefixInUniqueNameGeneration": {
+            "recommendedValue": true,
+            "explanation": "Include the stack prefix in the stack name generation process"
+          },
+          "@aws-cdk/aws-efs:denyAnonymousAccess": {
+            "recommendedValue": true,
+            "explanation": "EFS denies anonymous clients accesses"
+          },
+          "@aws-cdk/aws-opensearchservice:enableOpensearchMultiAzWithStandby": {
+            "recommendedValue": true,
+            "explanation": "Enables support for Multi-AZ with Standby deployment for opensearch domains"
+          },
+          "@aws-cdk/aws-lambda-nodejs:useLatestRuntimeVersion": {
+            "recommendedValue": true,
+            "explanation": "Enables aws-lambda-nodejs.Function to use the latest available NodeJs runtime as the default"
+          },
+          "@aws-cdk/aws-efs:mountTargetOrderInsensitiveLogicalId": {
+            "recommendedValue": true,
+            "explanation": "When enabled, mount targets will have a stable logicalId that is linked to the associated subnet."
+          },
+          "@aws-cdk/aws-rds:auroraClusterChangeScopeOfInstanceParameterGroupWithEachParameters": {
+            "recommendedValue": true,
+            "explanation": "When enabled, a scope of InstanceParameterGroup for AuroraClusterInstance with each parameters will change."
+          },
+          "@aws-cdk/aws-appsync:useArnForSourceApiAssociationIdentifier": {
+            "recommendedValue": true,
+            "explanation": "When enabled, will always use the arn for identifiers for CfnSourceApiAssociation in the GraphqlApi construct rather than id."
+          },
+          "@aws-cdk/aws-rds:preventRenderingDeprecatedCredentials": {
+            "recommendedValue": true,
+            "explanation": "When enabled, creating an RDS database cluster from a snapshot will only render credentials for snapshot credentials."
+          },
+          "@aws-cdk/aws-codepipeline-actions:useNewDefaultBranchForCodeCommitSource": {
+            "recommendedValue": true,
+            "explanation": "When enabled, the CodeCommit source action is using the default branch name 'main'."
+          },
+          "@aws-cdk/aws-cloudwatch-actions:changeLambdaPermissionLogicalIdForLambdaAction": {
+            "recommendedValue": true,
+            "explanation": "When enabled, the logical ID of a Lambda permission for a Lambda action includes an alarm ID."
+          },
+          "@aws-cdk/aws-codepipeline:crossAccountKeysDefaultValueToFalse": {
+            "recommendedValue": true,
+            "explanation": "Enables Pipeline to set the default value for crossAccountKeys to false."
+          },
+          "@aws-cdk/aws-codepipeline:defaultPipelineTypeToV2": {
+            "recommendedValue": true,
+            "explanation": "Enables Pipeline to set the default pipeline type to V2."
+          },
+          "@aws-cdk/aws-kms:reduceCrossAccountRegionPolicyScope": {
+            "recommendedValue": true,
+            "explanation": "When enabled, IAM Policy created from KMS key grant will reduce the resource scope to this key only."
+          },
+          "@aws-cdk/pipelines:reduceAssetRoleTrustScope": {
+            "recommendedValue": true,
+            "explanation": "Remove the root account principal from PipelineAssetsFileRole trust policy",
+            "unconfiguredBehavesLike": {
+              "v2": true
+            }
+          },
+          "@aws-cdk/aws-eks:nodegroupNameAttribute": {
+            "recommendedValue": true,
+            "explanation": "When enabled, nodegroupName attribute of the provisioned EKS NodeGroup will not have the cluster name prefix."
+          },
+          "@aws-cdk/aws-eks:useNativeOidcProvider": {
+            "recommendedValue": true,
+            "explanation": "When enabled, EKS V2 clusters will use the native OIDC provider resource AWS::IAM::OIDCProvider instead of creating the OIDCProvider with a custom resource (iam.OpenIDConnectProvider)."
+          },
+          "@aws-cdk/aws-ec2:ebsDefaultGp3Volume": {
+            "recommendedValue": true,
+            "explanation": "When enabled, the default volume type of the EBS volume will be GP3"
+          },
+          "@aws-cdk/aws-ecs:removeDefaultDeploymentAlarm": {
+            "recommendedValue": true,
+            "explanation": "When enabled, remove default deployment alarm settings"
+          },
+          "@aws-cdk/custom-resources:logApiResponseDataPropertyTrueDefault": {
+            "recommendedValue": false,
+            "explanation": "When enabled, the custom resource used for `AwsCustomResource` will configure the `logApiResponseData` property as true by default"
+          },
+          "@aws-cdk/aws-s3:keepNotificationInImportedBucket": {
+            "recommendedValue": false,
+            "explanation": "When enabled, Adding notifications to a bucket in the current stack will not remove notification from imported stack."
+          },
+          "@aws-cdk/aws-stepfunctions-tasks:useNewS3UriParametersForBedrockInvokeModelTask": {
+            "recommendedValue": true,
+            "explanation": "When enabled, use new props for S3 URI field in task definition of state machine for bedrock invoke model.",
+            "unconfiguredBehavesLike": {
+              "v2": true
+            }
+          },
+          "@aws-cdk/core:explicitStackTags": {
+            "recommendedValue": true,
+            "explanation": "When enabled, stack tags need to be assigned explicitly on a Stack."
+          },
+          "@aws-cdk/aws-ecs:reduceEc2FargateCloudWatchPermissions": {
+            "recommendedValue": true,
+            "explanation": "When enabled, we will only grant the necessary permissions when users specify cloudwatch log group through logConfiguration"
+          },
+          "@aws-cdk/aws-dynamodb:resourcePolicyPerReplica": {
+            "recommendedValue": true,
+            "explanation": "When enabled will allow you to specify a resource policy per replica, and not copy the source table policy to all replicas"
+          },
+          "@aws-cdk/aws-ec2:ec2SumTImeoutEnabled": {
+            "recommendedValue": true,
+            "explanation": "When enabled, initOptions.timeout and resourceSignalTimeout values will be summed together."
+          },
+          "@aws-cdk/aws-appsync:appSyncGraphQLAPIScopeLambdaPermission": {
+            "recommendedValue": true,
+            "explanation": "When enabled, a Lambda authorizer Permission created when using GraphqlApi will be properly scoped with a SourceArn."
+          },
+          "@aws-cdk/aws-rds:setCorrectValueForDatabaseInstanceReadReplicaInstanceResourceId": {
+            "recommendedValue": true,
+            "explanation": "When enabled, the value of property `instanceResourceId` in construct `DatabaseInstanceReadReplica` will be set to the correct value which is `DbiResourceId` instead of currently `DbInstanceArn`"
+          },
+          "@aws-cdk/core:cfnIncludeRejectComplexResourceUpdateCreatePolicyIntrinsics": {
+            "recommendedValue": true,
+            "explanation": "When enabled, CFN templates added with `cfn-include` will error if the template contains Resource Update or Create policies with CFN Intrinsics that include non-primitive values."
+          },
+          "@aws-cdk/aws-lambda-nodejs:sdkV3ExcludeSmithyPackages": {
+            "recommendedValue": true,
+            "explanation": "When enabled, both `@aws-sdk` and `@smithy` packages will be excluded from the Lambda Node.js 18.x runtime to prevent version mismatches in bundled applications."
+          },
+          "@aws-cdk/aws-stepfunctions-tasks:fixRunEcsTaskPolicy": {
+            "recommendedValue": true,
+            "explanation": "When enabled, the resource of IAM Run Ecs policy generated by SFN EcsRunTask will reference the definition, instead of constructing ARN."
+          },
+          "@aws-cdk/aws-ec2:bastionHostUseAmazonLinux2023ByDefault": {
+            "recommendedValue": true,
+            "explanation": "When enabled, the BastionHost construct will use the latest Amazon Linux 2023 AMI, instead of Amazon Linux 2."
+          },
+          "@aws-cdk/core:aspectStabilization": {
+            "recommendedValue": true,
+            "explanation": "When enabled, a stabilization loop will be run when invoking Aspects during synthesis.",
+            "unconfiguredBehavesLike": {
+              "v2": true
+            }
+          },
+          "@aws-cdk/aws-route53-targets:userPoolDomainNameMethodWithoutCustomResource": {
+            "recommendedValue": true,
+            "explanation": "When enabled, use a new method for DNS Name of user pool domain target without creating a custom resource."
+          },
+          "@aws-cdk/aws-elasticloadbalancingV2:albDualstackWithoutPublicIpv4SecurityGroupRulesDefault": {
+            "recommendedValue": true,
+            "explanation": "When enabled, the default security group ingress rules will allow IPv6 ingress from anywhere"
+          },
+          "@aws-cdk/aws-iam:oidcRejectUnauthorizedConnections": {
+            "recommendedValue": true,
+            "explanation": "When enabled, the default behaviour of OIDC provider will reject unauthorized connections"
+          },
+          "@aws-cdk/core:enableAdditionalMetadataCollection": {
+            "recommendedValue": true,
+            "explanation": "When enabled, CDK will expand the scope of usage data collected to better inform CDK development and improve communication for security concerns and emerging issues."
+          },
+          "@aws-cdk/aws-lambda:createNewPoliciesWithAddToRolePolicy": {
+            "recommendedValue": false,
+            "explanation": "[Deprecated] When enabled, Lambda will create new inline policies with AddToRolePolicy instead of adding to the Default Policy Statement"
+          },
+          "@aws-cdk/aws-s3:setUniqueReplicationRoleName": {
+            "recommendedValue": true,
+            "explanation": "When enabled, CDK will automatically generate a unique role name that is used for s3 object replication."
+          },
+          "@aws-cdk/pipelines:reduceStageRoleTrustScope": {
+            "recommendedValue": true,
+            "explanation": "Remove the root account principal from Stage addActions trust policy",
+            "unconfiguredBehavesLike": {
+              "v2": true
+            }
+          },
+          "@aws-cdk/aws-events:requireEventBusPolicySid": {
+            "recommendedValue": true,
+            "explanation": "When enabled, grantPutEventsTo() will use resource policies with Statement IDs for service principals."
+          },
+          "@aws-cdk/core:aspectPrioritiesMutating": {
+            "recommendedValue": true,
+            "explanation": "When set to true, Aspects added by the construct library on your behalf will be given a priority of MUTATING."
+          },
+          "@aws-cdk/aws-dynamodb:retainTableReplica": {
+            "recommendedValue": true,
+            "explanation": "When enabled, table replica will be default to the removal policy of source table unless specified otherwise."
+          },
+          "@aws-cdk/cognito:logUserPoolClientSecretValue": {
+            "recommendedValue": false,
+            "explanation": "When disabled, the value of the user pool client secret will not be logged in the custom resource lambda function logs."
+          },
+          "@aws-cdk/pipelines:reduceCrossAccountActionRoleTrustScope": {
+            "recommendedValue": true,
+            "explanation": "When enabled, scopes down the trust policy for the cross-account action role",
+            "unconfiguredBehavesLike": {
+              "v2": true
+            }
+          },
+          "@aws-cdk/aws-stepfunctions:useDistributedMapResultWriterV2": {
+            "recommendedValue": true,
+            "explanation": "When enabled, the resultWriterV2 property of DistributedMap will be used insted of resultWriter"
+          },
+          "@aws-cdk/s3-notifications:addS3TrustKeyPolicyForSnsSubscriptions": {
+            "recommendedValue": true,
+            "explanation": "Add an S3 trust policy to a KMS key resource policy for SNS subscriptions."
+          },
+          "@aws-cdk/aws-ec2:requirePrivateSubnetsForEgressOnlyInternetGateway": {
+            "recommendedValue": true,
+            "explanation": "When enabled, the EgressOnlyGateway resource is only created if private subnets are defined in the dual-stack VPC."
+          },
+          "@aws-cdk/aws-ec2-alpha:useResourceIdForVpcV2Migration": {
+            "recommendedValue": false,
+            "explanation": "When enabled, use resource IDs for VPC V2 migration"
+          },
+          "@aws-cdk/aws-s3:publicAccessBlockedByDefault": {
+            "recommendedValue": true,
+            "explanation": "When enabled, setting any combination of options for BlockPublicAccess will automatically set true for any options not defined."
+          },
+          "@aws-cdk/aws-lambda:useCdkManagedLogGroup": {
+            "recommendedValue": true,
+            "explanation": "When enabled, CDK creates and manages loggroup for the lambda function"
+          },
+          "@aws-cdk/aws-elasticloadbalancingv2:networkLoadBalancerWithSecurityGroupByDefault": {
+            "recommendedValue": true,
+            "explanation": "When enabled, Network Load Balancer will be created with a security group by default."
+          },
+          "@aws-cdk/aws-stepfunctions-tasks:httpInvokeDynamicJsonPathEndpoint": {
+            "recommendedValue": true,
+            "explanation": "When enabled, allows using a dynamic apiEndpoint with JSONPath format in HttpInvoke tasks.",
+            "unconfiguredBehavesLike": {
+              "v2": true
+            }
+          },
+          "@aws-cdk/aws-ecs-patterns:uniqueTargetGroupId": {
+            "recommendedValue": true,
+            "explanation": "When enabled, ECS patterns will generate unique target group IDs to prevent conflicts during load balancer replacement"
+          },
+          "@aws-cdk/aws-route53-patterns:useDistribution": {
+            "recommendedValue": true,
+            "explanation": "Use the `Distribution` resource instead of `CloudFrontWebDistribution`"
+          }
+        }
+      }
+    }
+  },
+  "minimumCliVersion": "2.1033.0"
+}

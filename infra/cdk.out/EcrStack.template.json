@@ -1,0 +1,409 @@
+{
+ "Description": "Kong API Gateway and Microservices Infrastructure",
+ "Resources": {
+  "ProductServiceRepository7B8211CB": {
+   "Type": "AWS::ECR::Repository",
+   "Properties": {
+    "ImageScanningConfiguration": {
+     "ScanOnPush": true
+    },
+    "ImageTagMutability": "MUTABLE",
+    "LifecyclePolicy": {
+     "LifecyclePolicyText": "{\"rules\":[{\"rulePriority\":1,\"selection\":{\"tagStatus\":\"any\",\"countType\":\"imageCountMoreThan\",\"countNumber\":10},\"action\":{\"type\":\"expire\"}}]}"
+    },
+    "RepositoryName": "kong-microservices-ref-app/product-service"
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "EcrStack/ProductServiceRepository/Resource"
+   }
+  },
+  "OrderServiceRepository86684BF7": {
+   "Type": "AWS::ECR::Repository",
+   "Properties": {
+    "ImageScanningConfiguration": {
+     "ScanOnPush": true
+    },
+    "ImageTagMutability": "MUTABLE",
+    "LifecyclePolicy": {
+     "LifecyclePolicyText": "{\"rules\":[{\"rulePriority\":1,\"selection\":{\"tagStatus\":\"any\",\"countType\":\"imageCountMoreThan\",\"countNumber\":10},\"action\":{\"type\":\"expire\"}}]}"
+    },
+    "RepositoryName": "kong-microservices-ref-app/order-service"
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "EcrStack/OrderServiceRepository/Resource"
+   }
+  },
+  "InventoryServiceRepository136F3D19": {
+   "Type": "AWS::ECR::Repository",
+   "Properties": {
+    "ImageScanningConfiguration": {
+     "ScanOnPush": true
+    },
+    "ImageTagMutability": "MUTABLE",
+    "LifecyclePolicy": {
+     "LifecyclePolicyText": "{\"rules\":[{\"rulePriority\":1,\"selection\":{\"tagStatus\":\"any\",\"countType\":\"imageCountMoreThan\",\"countNumber\":10},\"action\":{\"type\":\"expire\"}}]}"
+    },
+    "RepositoryName": "kong-microservices-ref-app/inventory-service"
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "EcrStack/InventoryServiceRepository/Resource"
+   }
+  },
+  "CDKMetadata": {
+   "Type": "AWS::CDK::Metadata",
+   "Properties": {
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/zPSMzK20DNQTCwv1k1OydbNyUzSqw4uSUzO1kksL45PTS7Sqw5KLcgvzizJL6rUcU7LQ/BqQVz/0pKC0pJaHa/EskR9Q3M9Az1DI8Ws4sxM3aLSvJLM3FS9IAgNALW6pudqAAAA"
+   },
+   "Metadata": {
+    "aws:cdk:path": "EcrStack/CDKMetadata/Default"
+   }
+  }
+ },
+ "Outputs": {
+  "ProductServiceRepositoryUri": {
+   "Description": "Product Service ECR Repository URI",
+   "Value": {
+    "Fn::Join": [
+     "",
+     [
+      {
+       "Fn::Select": [
+        4,
+        {
+         "Fn::Split": [
+          ":",
+          {
+           "Fn::GetAtt": [
+            "ProductServiceRepository7B8211CB",
+            "Arn"
+           ]
+          }
+         ]
+        }
+       ]
+      },
+      ".dkr.ecr.",
+      {
+       "Fn::Select": [
+        3,
+        {
+         "Fn::Split": [
+          ":",
+          {
+           "Fn::GetAtt": [
+            "ProductServiceRepository7B8211CB",
+            "Arn"
+           ]
+          }
+         ]
+        }
+       ]
+      },
+      ".",
+      {
+       "Ref": "AWS::URLSuffix"
+      },
+      "/",
+      {
+       "Ref": "ProductServiceRepository7B8211CB"
+      }
+     ]
+    ]
+   }
+  },
+  "OrderServiceRepositoryUri": {
+   "Description": "Order Service ECR Repository URI",
+   "Value": {
+    "Fn::Join": [
+     "",
+     [
+      {
+       "Fn::Select": [
+        4,
+        {
+         "Fn::Split": [
+          ":",
+          {
+           "Fn::GetAtt": [
+            "OrderServiceRepository86684BF7",
+            "Arn"
+           ]
+          }
+         ]
+        }
+       ]
+      },
+      ".dkr.ecr.",
+      {
+       "Fn::Select": [
+        3,
+        {
+         "Fn::Split": [
+          ":",
+          {
+           "Fn::GetAtt": [
+            "OrderServiceRepository86684BF7",
+            "Arn"
+           ]
+          }
+         ]
+        }
+       ]
+      },
+      ".",
+      {
+       "Ref": "AWS::URLSuffix"
+      },
+      "/",
+      {
+       "Ref": "OrderServiceRepository86684BF7"
+      }
+     ]
+    ]
+   }
+  },
+  "InventoryServiceRepositoryUri": {
+   "Description": "Inventory Service ECR Repository URI",
+   "Value": {
+    "Fn::Join": [
+     "",
+     [
+      {
+       "Fn::Select": [
+        4,
+        {
+         "Fn::Split": [
+          ":",
+          {
+           "Fn::GetAtt": [
+            "InventoryServiceRepository136F3D19",
+            "Arn"
+           ]
+          }
+         ]
+        }
+       ]
+      },
+      ".dkr.ecr.",
+      {
+       "Fn::Select": [
+        3,
+        {
+         "Fn::Split": [
+          ":",
+          {
+           "Fn::GetAtt": [
+            "InventoryServiceRepository136F3D19",
+            "Arn"
+           ]
+          }
+         ]
+        }
+       ]
+      },
+      ".",
+      {
+       "Ref": "AWS::URLSuffix"
+      },
+      "/",
+      {
+       "Ref": "InventoryServiceRepository136F3D19"
+      }
+     ]
+    ]
+   }
+  },
+  "EcrPushCommand": {
+   "Description": "Example docker push command",
+   "Value": {
+    "Fn::Join": [
+     "",
+     [
+      "docker tag <image> ",
+      {
+       "Fn::Select": [
+        4,
+        {
+         "Fn::Split": [
+          ":",
+          {
+           "Fn::GetAtt": [
+            "ProductServiceRepository7B8211CB",
+            "Arn"
+           ]
+          }
+         ]
+        }
+       ]
+      },
+      ".dkr.ecr.",
+      {
+       "Fn::Select": [
+        3,
+        {
+         "Fn::Split": [
+          ":",
+          {
+           "Fn::GetAtt": [
+            "ProductServiceRepository7B8211CB",
+            "Arn"
+           ]
+          }
+         ]
+        }
+       ]
+      },
+      ".",
+      {
+       "Ref": "AWS::URLSuffix"
+      },
+      "/",
+      {
+       "Ref": "ProductServiceRepository7B8211CB"
+      },
+      ":latest && docker push ",
+      {
+       "Fn::Select": [
+        4,
+        {
+         "Fn::Split": [
+          ":",
+          {
+           "Fn::GetAtt": [
+            "ProductServiceRepository7B8211CB",
+            "Arn"
+           ]
+          }
+         ]
+        }
+       ]
+      },
+      ".dkr.ecr.",
+      {
+       "Fn::Select": [
+        3,
+        {
+         "Fn::Split": [
+          ":",
+          {
+           "Fn::GetAtt": [
+            "ProductServiceRepository7B8211CB",
+            "Arn"
+           ]
+          }
+         ]
+        }
+       ]
+      },
+      ".",
+      {
+       "Ref": "AWS::URLSuffix"
+      },
+      "/",
+      {
+       "Ref": "ProductServiceRepository7B8211CB"
+      },
+      ":latest"
+     ]
+    ]
+   }
+  },
+  "ExportsOutputFnGetAttProductServiceRepository7B8211CBArn1E4B043D": {
+   "Value": {
+    "Fn::GetAtt": [
+     "ProductServiceRepository7B8211CB",
+     "Arn"
+    ]
+   },
+   "Export": {
+    "Name": "EcrStack:ExportsOutputFnGetAttProductServiceRepository7B8211CBArn1E4B043D"
+   }
+  },
+  "ExportsOutputRefProductServiceRepository7B8211CB74D021B1": {
+   "Value": {
+    "Ref": "ProductServiceRepository7B8211CB"
+   },
+   "Export": {
+    "Name": "EcrStack:ExportsOutputRefProductServiceRepository7B8211CB74D021B1"
+   }
+  },
+  "ExportsOutputFnGetAttInventoryServiceRepository136F3D19Arn96F96D27": {
+   "Value": {
+    "Fn::GetAtt": [
+     "InventoryServiceRepository136F3D19",
+     "Arn"
+    ]
+   },
+   "Export": {
+    "Name": "EcrStack:ExportsOutputFnGetAttInventoryServiceRepository136F3D19Arn96F96D27"
+   }
+  },
+  "ExportsOutputRefInventoryServiceRepository136F3D193426C416": {
+   "Value": {
+    "Ref": "InventoryServiceRepository136F3D19"
+   },
+   "Export": {
+    "Name": "EcrStack:ExportsOutputRefInventoryServiceRepository136F3D193426C416"
+   }
+  },
+  "ExportsOutputFnGetAttOrderServiceRepository86684BF7Arn04558D10": {
+   "Value": {
+    "Fn::GetAtt": [
+     "OrderServiceRepository86684BF7",
+     "Arn"
+    ]
+   },
+   "Export": {
+    "Name": "EcrStack:ExportsOutputFnGetAttOrderServiceRepository86684BF7Arn04558D10"
+   }
+  },
+  "ExportsOutputRefOrderServiceRepository86684BF7C148017B": {
+   "Value": {
+    "Ref": "OrderServiceRepository86684BF7"
+   },
+   "Export": {
+    "Name": "EcrStack:ExportsOutputRefOrderServiceRepository86684BF7C148017B"
+   }
+  }
+ },
+ "Parameters": {
+  "BootstrapVersion": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/cdk-bootstrap/hnb659fds/version",
+   "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
+  }
+ },
+ "Rules": {
+  "CheckBootstrapVersion": {
+   "Assertions": [
+    {
+     "Assert": {
+      "Fn::Not": [
+       {
+        "Fn::Contains": [
+         [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+         ],
+         {
+          "Ref": "BootstrapVersion"
+         }
+        ]
+       }
+      ]
+     },
+     "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI."
+    }
+   ]
+  }
+ }
+}

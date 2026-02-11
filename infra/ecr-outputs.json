@@ -1,0 +1,14 @@
+{
+  "EcrStack": {
+    "EcrPushCommand": "docker tag <image> 383865785149.dkr.ecr.ap-southeast-1.amazonaws.com/kong-microservices-ref-app/product-service:latest && docker push 383865785149.dkr.ecr.ap-southeast-1.amazonaws.com/kong-microservices-ref-app/product-service:latest",
+    "ExportsOutputRefProductServiceRepository7B8211CB74D021B1": "kong-microservices-ref-app/product-service",
+    "ExportsOutputRefOrderServiceRepository86684BF7C148017B": "kong-microservices-ref-app/order-service",
+    "ExportsOutputFnGetAttProductServiceRepository7B8211CBArn1E4B043D": "arn:aws:ecr:ap-southeast-1:383865785149:repository/kong-microservices-ref-app/product-service",
+    "InventoryServiceRepositoryUri": "383865785149.dkr.ecr.ap-southeast-1.amazonaws.com/kong-microservices-ref-app/inventory-service",
+    "ExportsOutputFnGetAttInventoryServiceRepository136F3D19Arn96F96D27": "arn:aws:ecr:ap-southeast-1:383865785149:repository/kong-microservices-ref-app/inventory-service",
+    "ExportsOutputRefInventoryServiceRepository136F3D193426C416": "kong-microservices-ref-app/inventory-service",
+    "ProductServiceRepositoryUri": "383865785149.dkr.ecr.ap-southeast-1.amazonaws.com/kong-microservices-ref-app/product-service",
+    "OrderServiceRepositoryUri": "383865785149.dkr.ecr.ap-southeast-1.amazonaws.com/kong-microservices-ref-app/order-service",
+    "ExportsOutputFnGetAttOrderServiceRepository86684BF7Arn04558D10": "arn:aws:ecr:ap-southeast-1:383865785149:repository/kong-microservices-ref-app/order-service"
+  }
+}

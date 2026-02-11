@@ -1,0 +1,54 @@
+{
+ "Description": "Kong API Gateway and Microservices Infrastructure",
+ "Outputs": {
+  "PostgresDatabaseEndpoint": {
+   "Description": "PostgreSQL Database Endpoint (internal DNS)",
+   "Value": "postgres.databases.svc.cluster.local:5432"
+  }
+ },
+ "Resources": {
+  "CDKMetadata": {
+   "Type": "AWS::CDK::Metadata",
+   "Properties": {
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/zPSMzK20DNQTCwv1k1OydbNyUzSqw4uSUzO1nFOy/MvLSkoLanV8UosS9Q3NNcz0DM0UswqzszULSrNK8nMTdULgtAAaEXND0cAAAA="
+   },
+   "Metadata": {
+    "aws:cdk:path": "DatabaseStack/CDKMetadata/Default"
+   }
+  }
+ },
+ "Parameters": {
+  "BootstrapVersion": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/cdk-bootstrap/hnb659fds/version",
+   "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
+  }
+ },
+ "Rules": {
+  "CheckBootstrapVersion": {
+   "Assertions": [
+    {
+     "Assert": {
+      "Fn::Not": [
+       {
+        "Fn::Contains": [
+         [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+         ],
+         {
+          "Ref": "BootstrapVersion"
+         }
+        ]
+       }
+      ]
+     },
+     "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI."
+    }
+   ]
+  }
+ }
+}
