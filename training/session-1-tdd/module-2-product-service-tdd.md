@@ -1,7 +1,5 @@
 # Module 2: TDD Exercise — Product Service
 
-## Duration
-35 minutes
 
 ## Learning Objectives
 - Apply strict Red-Green-Refactor to build a service layer from scratch

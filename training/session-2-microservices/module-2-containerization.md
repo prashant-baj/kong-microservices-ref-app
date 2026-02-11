@@ -1,7 +1,5 @@
 # Module 2: Containerization Exercise
 
-## Duration
-25 minutes (hands-on)
 
 ## Learning Objectives
 - Build multi-stage Dockerfiles that separate build-time and runtime concerns

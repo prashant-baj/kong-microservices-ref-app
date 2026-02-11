@@ -1,8 +1,5 @@
 # Module 5: Session 1 Wrap-Up
 
-## Duration
-5 minutes
-
 ---
 
 ## What We Built

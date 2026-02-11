@@ -1,8 +1,5 @@
 # Module 4: TDD Exercise — Order Service
 
-## Duration
-20 minutes
-
 ## Learning Objectives
 - Test-drive a service that orchestrates calls to other microservices
 - Implement compensation logic (rollback on partial failure) via TDD

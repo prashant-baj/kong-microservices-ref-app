@@ -1,7 +1,5 @@
 # Module 4: Inter-Service Communication
 
-## Duration
-25 minutes
 
 ## Learning Objectives
 - Wire services together using Docker Compose DNS names

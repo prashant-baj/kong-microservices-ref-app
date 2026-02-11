@@ -1,7 +1,5 @@
 # Module 1: TDD at the Architecture Level
 
-## Duration
-25 minutes (presentation + discussion)
 
 ## Learning Objectives
 - Reframe TDD from "testing technique" to "design tool" for architects

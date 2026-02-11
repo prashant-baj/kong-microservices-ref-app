@@ -1,7 +1,5 @@
 # Module 1: Microservices Architecture Deep Dive
 
-## Duration
-20 minutes (presentation + facilitated discussion)
 
 ## Learning Objectives
 - Distinguish between microservices and modular monoliths, identifying when decomposition is justified

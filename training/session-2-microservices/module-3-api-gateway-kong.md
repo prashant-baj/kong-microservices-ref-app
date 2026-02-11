@@ -1,7 +1,5 @@
 # Module 3: API Gateway with Kong
 
-## Duration
-30 minutes
 
 ## Learning Objectives
 - Configure Kong declaratively in DB-less mode (GitOps-aligned)

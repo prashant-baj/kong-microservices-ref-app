@@ -1,7 +1,5 @@
 # Module 3: TDD Exercise — Inventory Service
 
-## Duration
-35 minutes
 
 ## Learning Objectives
 - Apply TDD to richer business logic (stock reservation, idempotency)

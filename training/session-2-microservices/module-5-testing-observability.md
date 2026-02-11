@@ -1,7 +1,5 @@
 # Module 5: E2E Testing and Observability
 
-## Duration
-15 minutes
 
 ## Learning Objectives
 - Write automated E2E tests against the full Docker Compose stack through Kong

@@ -1,8 +1,5 @@
 # Module 6: Architecture Review and Production Readiness
 
-## Duration
-5 minutes (discussion)
-
 ---
 
 ## What We Built Today
