@@ -34,10 +34,7 @@ The critical insight for architects: **microservices are an organizational scali
 | Operational maturity | Limited DevOps capacity | Strong CI/CD, observability |
 | Latency sensitivity | In-process calls needed | Network overhead acceptable |
 
-### Facilitation Note
-Ask participants: *"Raise your hand if you have worked on a system that was decomposed into microservices too early."* -- this reliably generates discussion and grounds the theory in real experience.
 
----
 
 ## Topic 2: The API Gateway Pattern
 

@@ -71,7 +71,7 @@ public class ProductController {
     }
 
     @GetMapping
-    @Operation(summary = "Get all products", description = "Retrieves a list of all available products")
+    @Operation(summary = "Get all the products", description = "Retrieves a list of all available products")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "List of products retrieved successfully",
                     content = @Content(mediaType = "application/json", schema = @Schema(implementation = ProductResponse.class))),
