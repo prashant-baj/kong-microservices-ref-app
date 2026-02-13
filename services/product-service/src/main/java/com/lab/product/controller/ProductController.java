@@ -64,7 +64,7 @@ public class ProductController {
     })
     public ResponseEntity<ProductResponse> getProduct(
             @PathVariable
-            @Parameter(description = "Product ID", example = "550e8400-e29b-41d4-a716-446655440000")
+            @Parameter(description = "Product Id", example = "550e8400-e29b-41d4-a716-446655440000")
             UUID id) {
         Product product = productService.getProduct(id);
         return ResponseEntity.ok(ProductResponse.from(product));
